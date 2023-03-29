@@ -1,0 +1,31 @@
+﻿@model KelompokIbadahViewModel
+@{
+    ViewData["Title"] = "View Kelompok Ibadah";
+}
+
+<div class="container-fluid">
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Single.Kelompok_Ibadah)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Single.Kelompok_Ibadah)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Single.PIC_ID)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Single.PIC_ID)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Single.Keterangan)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Single.Keterangan)
+        </dd>
+    </dl>
+    <div>
+        <a class="btn btn-primary" asp-action="KelompokIbadahAddEdit" asp-route-id="@Model.Single.Kelompok_Ibadah_ID">Edit</a>
+        <a class="btn btn-neutral" asp-action="KelompokIbadahIndex">Back</a>
+    </div>
+</div>

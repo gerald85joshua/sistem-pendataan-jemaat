@@ -6,7 +6,7 @@ namespace SistemPendataanJemaat.Repositories
 {
     public class RepositoryContext : DbContext
     {
-        public DbSet<KelompokIbadahModel> KelompokIbadahModels { get; set; }
+        public DbSet<KelompokIbadahEntityModel> KelompokIbadahModels { get; set; }
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)
@@ -14,7 +14,7 @@ namespace SistemPendataanJemaat.Repositories
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<KelompokIbadahModel>(u =>
+            modelBuilder.Entity<KelompokIbadahEntityModel>(u =>
             {
                 u.HasKey(e => e.Kelompok_Ibadah_ID);
                 u.Property(e => e.Kelompok_Ibadah);

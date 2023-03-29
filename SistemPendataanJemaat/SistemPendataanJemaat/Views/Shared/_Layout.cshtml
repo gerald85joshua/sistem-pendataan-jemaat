@@ -7,12 +7,23 @@
     <!-- Core Style CSS -->
     <link rel="stylesheet" href="https://therichpost.com/responsivestyle/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
     <style>
         .logo {
             font-size: 3rem;
         }
     </style>
+
+    <script>
+        jQuery(document).ready(function () {
+            jQuery('[data-confirm]').click(function (e) {
+                if (!confirm(jQuery(this).attr("data-confirm"))) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 
 </head>
 <body>

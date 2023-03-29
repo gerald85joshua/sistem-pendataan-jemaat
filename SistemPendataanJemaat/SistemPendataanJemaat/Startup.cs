@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MySqlConnector;
+using SistemPendataanJemaat.Helper;
 using SistemPendataanJemaat.Interfaces;
 using SistemPendataanJemaat.Repositories;
 
@@ -26,7 +27,9 @@ namespace SistemPendataanJemaat
             services.AddDbContext<RepositoryContext>(
                 o => o.UseMySql(Configuration["ConnectionStrings:Default"], MySqlServerVersion.LatestSupportedServerVersion));
 
+            services.AddMemoryCache();
             services.AddControllersWithViews();
+            services.AddScoped<ICacheHelper, CacheHelper>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 

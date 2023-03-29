@@ -2,7 +2,7 @@
 
 namespace SistemPendataanJemaat.Interfaces
 {
-    public interface IKelompokIbadahRepository : IRepositoryBase<KelompokIbadahModel>
+    public interface IKelompokIbadahRepository : IRepositoryBase<KelompokIbadahEntityModel>
     {
     }
 }

@@ -1,0 +1,32 @@
+﻿@model KelompokIbadahViewModel
+@{
+    ViewData["Title"] = ViewBag.PageName;
+}
+
+<div class="container-fluid">
+    <form asp-action="KelompokIbadahAddEdit">
+        @if (@ViewBag.IsEdit)
+        {
+            <input type="hidden" asp-for="Single.Kelompok_Ibadah_ID" />
+        }
+        <div class="form-group">
+            <label asp-for="Single.Kelompok_Ibadah" class="control-label"></label>
+            <input asp-for="Single.Kelompok_Ibadah" class="form-control" />
+            <span asp-validation-for="Single.Kelompok_Ibadah" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.PIC_ID" class="control-label"></label>
+            <input asp-for="Single.PIC_ID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Keterangan" class="control-label"></label>
+            <input asp-for="Single.Keterangan" class="form-control" />
+            <span asp-validation-for="Single.Keterangan" class="text-danger"></span>
+        </div>
+        <br/><hr/><br/>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save" data-confirm="Anda yakin ingin menyimnpan data Kelompok Ibadah?" />
+            <a class="btn btn-neutral" asp-action="KelompokIbadahIndex">Back</a>
+        </div>
+    </form>
+</div>
