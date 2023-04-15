@@ -10,16 +10,27 @@ namespace SistemPendataanJemaat.Repositories
     {
         private RepositoryContext _repoContext;
         private IKelompokIbadahRepository _kelompokIbadah;
+        private IJemaatRepository _jemaat;
 
         public IKelompokIbadahRepository KelompokIbadah
         {
             get
             {
                 if (_kelompokIbadah == null)
-                {
                     _kelompokIbadah = new KelompokIbadahRepository(_repoContext);
-                }
+
                 return _kelompokIbadah;
+            }
+        }
+
+        public IJemaatRepository Jemaat
+        {
+            get
+            {
+                if (_jemaat == null)
+                    _jemaat = new JemaatRepository(_repoContext);
+
+                return _jemaat;
             }
         }
         

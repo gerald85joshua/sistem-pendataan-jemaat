@@ -1,6 +1,6 @@
-﻿@model KelompokIbadahViewModel
+﻿@model JemaatViewModel
 @{
-    ViewData["Title"] = "Kelompok Ibadah";
+    ViewData["Title"] = "Jemaat";
     var num = 0;
 }
 
@@ -13,9 +13,9 @@
                 <thead class="thead-light">
                     <tr>
                         <th scope="col">No.</th>
-                        <th scope="col">Kelompok Ibadah</th>
-                        <th scope="col">PIC</th>
-                        <th scope="col">Keterangan</th>
+                        <th scope="col">Nama Lengkap</th>
+                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Komsel</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -25,14 +25,14 @@
                         num++;
                         <tr>
                             <td> @num. </td>
-                            <td> @item.Kelompok_Ibadah </td>
-                            <td> @item.PIC_ID </td>
-                            <td> @item.Keterangan </td>
+                            <td> @item.Nama_Lengkap </td>
+                            <td> @item.Jenis_Kelamin </td>
+                            <td> @item.Komsel_ID </td>
                             <td>
                                 <form asp-action="KelompokIbadahDelete">
-                                    <a asp-action="KelompokIbadahDetail" asp-route-id="@item.Kelompok_Ibadah_ID" class="btn btn-sm btn-neutral">View</a>
-                                    <a asp-action="KelompokIbadahAddEdit" asp-route-id="@item.Kelompok_Ibadah_ID" class="btn btn-sm btn-square btn-neutral text-danger-hover"> <i class="bi bi-pencil"></i> </a>
-                                    <input name="id" type="hidden" value="@item.Kelompok_Ibadah_ID" />
+                                    <a asp-action="KelompokIbadahDetail" asp-route-id="@item.ID" class="btn btn-sm btn-neutral">View</a>
+                                    <a asp-action="KelompokIbadahAddEdit" asp-route-id="@item.ID" class="btn btn-sm btn-square btn-neutral text-danger-hover"> <i class="bi bi-pencil"></i> </a>
+                                    <input name="id" type="hidden" value="@item.ID" />
                                     <button class="btn btn-sm btn-square btn-neutral text-danger-hover" type="submit" data-confirm="Apa Anda yakin ingin menghapus data Kelompok Ibadah ini?"> <i class="bi bi-trash"></i> </button>
                                 </form>
                         </tr>

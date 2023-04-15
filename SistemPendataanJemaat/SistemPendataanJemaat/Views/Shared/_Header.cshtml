@@ -26,6 +26,14 @@
                 <div class="mx-n1"> <a href="#" class="btn d-inline-flex btn-sm btn-neutral border-base mx-1"> <span class=" pe-2"> <i class="bi bi-pencil"></i> </span> <span>Edit</span> </a> <a href="#" class="btn d-inline-flex btn-sm btn-primary mx-1"> <span class=" pe-2"> <i class="bi bi-plus"></i> </span> <span>Create</span> </a> </div>
             </div>*@
             </div> <!-- Nav -->
+            @if (controllerName.ToLower() == "datajemaat")
+            {
+                <ul class="nav nav-tabs mt-4 overflow-x border-0">
+                    <li class="nav-item"> <a asp-action="jemaatindex" asp-controller="datajemaat" class="nav-link @(actionName.ToLower().StartsWith("jemaat") ? "active" : "font-regular")">Jemaat</a> </li>
+                    <li class="nav-item"> <a href="#" class="nav-link font-regular">Keluarga</a> </li>
+                    <li class="nav-item"> <a href="#" class="nav-link font-regular">Pernikahan</a> </li>
+                </ul>
+            }
             @if (controllerName.ToLower() == "masterdata")
             {
                 <ul class="nav nav-tabs mt-4 overflow-x border-0">

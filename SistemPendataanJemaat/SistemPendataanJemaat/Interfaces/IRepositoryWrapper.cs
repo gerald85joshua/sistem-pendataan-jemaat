@@ -8,6 +8,7 @@ namespace SistemPendataanJemaat.Interfaces
     public interface IRepositoryWrapper
     {
         IKelompokIbadahRepository KelompokIbadah { get; }
+        IJemaatRepository Jemaat { get; }
         void Save();
     }
 }
