@@ -19,6 +19,7 @@ namespace SistemPendataanJemaat.Controllers
             _cache = cache;
         }
 
+        #region Kelompok Ibadah
         private static string GenerateId(int totalRow)
         {
             string result = "KELIB";
@@ -159,5 +160,52 @@ namespace SistemPendataanJemaat.Controllers
 
             return RedirectToAction("KelompokIbadahIndex");
         }
+        #endregion
+
+        #region Area
+        public IActionResult AreaIndex()
+        {
+            AreaViewModel viewModel = new AreaViewModel();
+
+            try
+            {
+                var area = _repository.Area.FindAll();
+                viewModel.List = area.ToList();
+                viewModel.DataCount = viewModel.List.Count;
+
+                var cacheValue = JsonSerializer.Serialize(viewModel);
+                _cache.SetCache("MasterData_Area", cacheValue);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+        #endregion
+
+        #region Komsel
+        public IActionResult KomselIndex()
+        {
+            KomselViewModel viewModel = new KomselViewModel();
+
+            try
+            {
+                var komsel = _repository.Komsel.FindAll();
+                viewModel.List = komsel.ToList();
+                viewModel.DataCount = viewModel.List.Count;
+
+                var cacheValue = JsonSerializer.Serialize(viewModel);
+                _cache.SetCache("MasterData_Area", cacheValue);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+        #endregion
     }
 }

@@ -21,6 +21,22 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.PIC_ID);
                 u.Property(e => e.Keterangan);
             });
+
+            modelBuilder.Entity<AreaEntityModel>(u =>
+            {
+                u.HasKey(e => e.Area_ID);
+                u.Property(e => e.Area);
+                u.Property(e => e.PIC_ID);
+                u.Property(e => e.Keterangan);
+            });
+
+            modelBuilder.Entity<KomselEntityModel>(u =>
+            {
+                u.HasKey(e => e.Komsel_ID);
+                u.Property(e => e.Komsel);
+                u.Property(e => e.PIC_ID);
+                u.Property(e => e.Keterangan);
+            });
         }
     }
 }

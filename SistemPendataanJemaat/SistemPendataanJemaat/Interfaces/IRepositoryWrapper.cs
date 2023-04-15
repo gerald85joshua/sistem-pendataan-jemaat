@@ -8,6 +8,8 @@ namespace SistemPendataanJemaat.Interfaces
     public interface IRepositoryWrapper
     {
         IKelompokIbadahRepository KelompokIbadah { get; }
+        IAreaRepository Area { get; }
+        IKomselRepository Komsel { get; }
         void Save();
     }
 }
