@@ -10,6 +10,7 @@ namespace SistemPendataanJemaat.Interfaces
         IKelompokIbadahRepository KelompokIbadah { get; }
         IAreaRepository Area { get; }
         IKomselRepository Komsel { get; }
+        IJemaatRepository Jemaat { get; }
         void Save();
     }
 }

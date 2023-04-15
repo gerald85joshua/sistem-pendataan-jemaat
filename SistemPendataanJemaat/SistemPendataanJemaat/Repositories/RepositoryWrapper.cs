@@ -12,16 +12,15 @@ namespace SistemPendataanJemaat.Repositories
         private IKelompokIbadahRepository _kelompokIbadah;
         private IAreaRepository _area;
         private IKomselRepository _komsel;
-
+        private IJemaatRepository _jemaat;
 
         public IKelompokIbadahRepository KelompokIbadah
         {
             get
             {
                 if (_kelompokIbadah == null)
-                {
                     _kelompokIbadah = new KelompokIbadahRepository(_repoContext);
-                }
+
                 return _kelompokIbadah;
             }
         }
@@ -49,8 +48,17 @@ namespace SistemPendataanJemaat.Repositories
                 return _komsel;
             }
         }
+        public IJemaatRepository Jemaat
+        {
+            get
+            {
+                if (_jemaat == null)
+                    _jemaat = new JemaatRepository(_repoContext);
 
-
+                return _jemaat;
+            }
+        }
+        
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repoContext = repositoryContext;

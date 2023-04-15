@@ -4,7 +4,6 @@ using SistemPendataanJemaat.Models;
 using System;
 using System.Text.Json;
 using System.Linq;
-using SistemPendataanJemaat.Models.Entities;
 
 namespace SistemPendataanJemaat.Controllers
 {
@@ -20,25 +19,44 @@ namespace SistemPendataanJemaat.Controllers
         }
 
         #region Kelompok Ibadah
-        private static string GenerateId(int totalRow)
+        private static string GenerateId(string code, int lastRow)
         {
-            string result = "KELIB";
-            int newRow = totalRow + 1;
+            string result = code;
+            int newRow = lastRow + 1;
 
             if(newRow < 10)
             {
-                result += "0000" + newRow;
+                result += "0000";
+                if (code.Length < 5)
+                    result += "0";
+
+                result += newRow;
             } else if(newRow < 100)
             {
-                result += "000" + newRow;
+                result += "000";
+                if (code.Length < 5)
+                    result += "0";
+
+                result += newRow;
             } else if(newRow < 1000)
             {
-                result += "00" + newRow;
+                result += "00";
+                if (code.Length < 5)
+                    result += "0";
+
+                result += newRow;
             } else if(newRow < 10000)
             {
-                result += "0" + newRow;
+                result += "0";
+                if (code.Length < 5)
+                    result += "0";
+
+                result += newRow;
             } else
             {
+                if (code.Length < 5)
+                    result += "0";
+
                 result += newRow;
             }
 
@@ -102,8 +120,10 @@ namespace SistemPendataanJemaat.Controllers
                 {
                     var cacheValue = _cache.GetCache("MasterData_KelompokIbadah");
                     viewModel = JsonSerializer.Deserialize<KelompokIbadahViewModel>(cacheValue);
+                    var lastID = viewModel.List.OrderBy(o => o.Kelompok_Ibadah_ID).LastOrDefault().Kelompok_Ibadah_ID;
+                    var lastRow = int.Parse(lastID.Replace("KELIB", string.Empty));
 
-                    kelompokIbadah.Kelompok_Ibadah_ID = GenerateId(viewModel.DataCount);
+                    kelompokIbadah.Kelompok_Ibadah_ID = GenerateId("KELIB", lastRow);
                     _repository.KelompokIbadah.Create(kelompokIbadah);
                 }
                 else
