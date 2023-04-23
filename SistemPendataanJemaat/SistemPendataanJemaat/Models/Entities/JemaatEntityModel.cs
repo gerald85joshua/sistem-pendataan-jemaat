@@ -8,8 +8,9 @@ namespace SistemPendataanJemaat.Models.Entities
     [Table("tbl_jemaat")]
     public class JemaatEntityModel
     {
-        public Guid ID { get; set; }
+        public Guid? ID { get; set; }
 
+        [Display(Name = "KTP")]
         [StringLength(16, ErrorMessage = "KTP can't be longer than 16 characters")]
         public string KTP { get; set; }
 

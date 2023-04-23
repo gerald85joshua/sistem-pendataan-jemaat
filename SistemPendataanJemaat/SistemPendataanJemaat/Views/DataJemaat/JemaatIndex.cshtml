@@ -5,7 +5,7 @@
 }
 
 <div class="container-fluid">
-    <a asp-action="KelompokIbadahAddEdit" class="btn btn-neutral">+ Add</a>
+    <a asp-action="JemaatAddEdit" class="btn btn-neutral">+ Add</a>
     <br/><br />
     <div class="card shadow border-0 mb-7">
         <div class="table-responsive">
@@ -20,20 +20,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.List)
+                    @foreach (var item in Model.VwList)
                     {
                         num++;
                         <tr>
                             <td> @num. </td>
                             <td> @item.Nama_Lengkap </td>
                             <td> @item.Jenis_Kelamin </td>
-                            <td> @item.Komsel_ID </td>
+                            <td> @item.Komsel </td>
                             <td>
-                                <form asp-action="KelompokIbadahDelete">
-                                    <a asp-action="KelompokIbadahDetail" asp-route-id="@item.ID" class="btn btn-sm btn-neutral">View</a>
-                                    <a asp-action="KelompokIbadahAddEdit" asp-route-id="@item.ID" class="btn btn-sm btn-square btn-neutral text-danger-hover"> <i class="bi bi-pencil"></i> </a>
+                                <form asp-action="JemaatDelete">
+                                    <a asp-action="JemaatDetail" asp-route-id="@item.ID" class="btn btn-sm btn-neutral">View</a>
+                                    <a asp-action="JemaatAddEdit" asp-route-id="@item.ID" class="btn btn-sm btn-square btn-neutral text-danger-hover"> <i class="bi bi-pencil"></i> </a>
                                     <input name="id" type="hidden" value="@item.ID" />
-                                    <button class="btn btn-sm btn-square btn-neutral text-danger-hover" type="submit" data-confirm="Apa Anda yakin ingin menghapus data Kelompok Ibadah ini?"> <i class="bi bi-trash"></i> </button>
+                                    <button class="btn btn-sm btn-square btn-neutral text-danger-hover" type="submit" data-confirm="Apa Anda yakin ingin menghapus data data jemaat ini?"> <i class="bi bi-trash"></i> </button>
                                 </form>
                         </tr>
                     }

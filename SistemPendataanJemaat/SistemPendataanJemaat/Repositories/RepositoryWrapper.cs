@@ -13,6 +13,7 @@ namespace SistemPendataanJemaat.Repositories
         private IAreaRepository _area;
         private IKomselRepository _komsel;
         private IJemaatRepository _jemaat;
+        private IVwJemaatRepository _vw_jemaat;
 
         public IKelompokIbadahRepository KelompokIbadah
         {
@@ -48,6 +49,7 @@ namespace SistemPendataanJemaat.Repositories
                 return _komsel;
             }
         }
+
         public IJemaatRepository Jemaat
         {
             get
@@ -58,7 +60,17 @@ namespace SistemPendataanJemaat.Repositories
                 return _jemaat;
             }
         }
-        
+        public IVwJemaatRepository VwJemaat
+        {
+            get
+            {
+                if (_vw_jemaat == null)
+                    _vw_jemaat = new VwJemaatRepository(_repoContext);
+
+                return _vw_jemaat;
+            }
+        }
+
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repoContext = repositoryContext;
