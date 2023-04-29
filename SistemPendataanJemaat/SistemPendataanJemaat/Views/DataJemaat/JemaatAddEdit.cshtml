@@ -1,0 +1,105 @@
+﻿@model JemaatViewModel
+@{
+    ViewData["Title"] = ViewBag.PageName;
+}
+
+<div class="container-fluid">
+    <form asp-action="JemaatAddEdit">
+        @if (@ViewBag.IsEdit)
+        {
+            <input type="hidden" asp-for="Single.ID" />
+        }
+        <div class="form-group">
+            <label asp-for="Single.KTP" class="control-label"></label>
+            <input asp-for="Single.KTP" class="form-control" type="number" />
+            <span asp-validation-for="Single.KTP" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Nama_Lengkap" class="control-label"></label>
+            <input asp-for="Single.Nama_Lengkap" class="form-control" />
+            <span asp-validation-for="Single.Nama_Lengkap" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Nama_Panggilan" class="control-label"></label>
+            <input asp-for="Single.Nama_Panggilan" class="form-control" />
+            <span asp-validation-for="Single.Nama_Panggilan" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Jenis_Kelamin" class="control-label"></label><br/>
+            @Html.RadioButtonFor(m => m.Single.Jenis_Kelamin, "L") Laki-laki
+            @Html.RadioButtonFor(m => m.Single.Jenis_Kelamin, "P") Perempuan
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Pendidikan_Terakhir" class="control-label"></label>
+            <input asp-for="Single.Pendidikan_Terakhir" class="form-control" />
+            <span asp-validation-for="Single.Pendidikan_Terakhir" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Pekerjaan" class="control-label"></label>
+            <input asp-for="Single.Pekerjaan" class="form-control" />
+            <span asp-validation-for="Single.Pekerjaan" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Alamat" class="control-label"></label>
+            <input asp-for="Single.Alamat" class="form-control" />
+            <span asp-validation-for="Single.Alamat" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Status_Anggota_ID" class="control-label"></label>
+            <input asp-for="Single.Status_Anggota_ID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Status_Keaktifan_ID" class="control-label"></label>
+            <input asp-for="Single.Status_Keaktifan_ID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Kelompok_Ibadah_ID" class="control-label"></label>
+            <input asp-for="Single.Kelompok_Ibadah_ID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Area_ID" class="control-label"></label>
+            <input asp-for="Single.Area_ID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Komsel_ID" class="control-label"></label>
+            <input asp-for="Single.Komsel_ID" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Tempat_Lahir" class="control-label"></label>
+            <input asp-for="Single.Tempat_Lahir" class="form-control" />
+            <span asp-validation-for="Single.Tempat_Lahir" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Tanggal_Lahir" class="control-label"></label>
+            <input asp-for="Single.Tanggal_Lahir" class="form-control" type="date" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Golongan_Darah" class="control-label"></label>
+            @Html.DropDownListFor(m => m.Single.Golongan_Darah, Model.ddlGolonganDarah, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Bersedia_Donor_Darah" class="control-label"></label><br/>
+            @Html.RadioButtonFor(m => m.Single.Golongan_Darah, true) Ya
+            @Html.RadioButtonFor(m => m.Single.Golongan_Darah, false) Tidak
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.No_HP" class="control-label"></label>
+            <input asp-for="Single.No_HP" class="form-control" />
+            <span asp-validation-for="Single.No_HP" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Alamat_Email" class="control-label"></label>
+            <input asp-for="Single.Alamat_Email" class="form-control" type="email" />
+            <span asp-validation-for="Single.Alamat_Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Status_Pernikahan_ID" class="control-label"></label>
+            <input asp-for="Single.Status_Pernikahan_ID" class="form-control" />
+        </div>
+        <br /><hr /><br />
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save" data-confirm="Anda yakin ingin menyimnpan data Data Jemaat ini?" />
+            <a class="btn btn-neutral" asp-action="JemaatIndex">Back</a>
+        </div>
+    </form>
+</div>

@@ -39,23 +39,18 @@ namespace SistemPendataanJemaat.Models.Entities
         public string Alamat { get; set; }
 
         [Display(Name = "Status Anggota")]
-        [StringLength(2, ErrorMessage = "Status Anggota can't be longer than 2 characters")]
         public string Status_Anggota_ID { get; set; }
 
         [Display(Name = "Status Keaktifan")]
-        [StringLength(5, ErrorMessage = "Status Keaktifan can't be longer than 5 characters")]
         public string Status_Keaktifan_ID { get; set; }
 
         [Display(Name = "Kelompok Ibadah")]
-        [StringLength(10, ErrorMessage = "Kelompok Ibadah can't be longer than 10 characters")]
         public string Kelompok_Ibadah_ID { get; set; }
 
         [Display(Name = "Area")]
-        [StringLength(10, ErrorMessage = "Area can't be longer than 10 characters")]
         public string Area_ID { get; set; }
 
         [Display(Name = "Komsel")]
-        [StringLength(10, ErrorMessage = "Komsel can't be longer than 10 characters")]
         public string Komsel_ID { get; set; }
 
         [Display(Name = "Tempat Lahir")]
@@ -73,15 +68,17 @@ namespace SistemPendataanJemaat.Models.Entities
         public bool Bersedia_Donor_Darah { get; set; }
 
         [Display(Name = "No. HP")]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Invalid Phone Number")]
+        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Invalid Phone Number")]
         [StringLength(20, ErrorMessage = "No. HP can't be longer than 20 characters")]
         public string No_HP { get; set; }
 
         [Display(Name = "Alamat Email")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email Address")]
         [StringLength(50, ErrorMessage = "Alamat Email can't be longer than 50 characters")]
         public string Alamat_Email { get; set; }
 
         [Display(Name = "Status Pernikahan")]
-        [StringLength(50, ErrorMessage = "Status Pernikahan can't be longer than 50 characters")]
         public string Status_Pernikahan_ID { get; set; }
 
         public string Created_By { get; set; }

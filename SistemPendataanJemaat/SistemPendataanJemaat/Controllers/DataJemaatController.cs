@@ -4,6 +4,8 @@ using SistemPendataanJemaat.Models;
 using System;
 using System.Text.Json;
 using System.Linq;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SistemPendataanJemaat.Controllers
 {
@@ -29,6 +31,7 @@ namespace SistemPendataanJemaat.Controllers
                 var vw_jemaat = _repository.VwJemaat.FindAll();
                 viewModel.List = jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
                 viewModel.VwList = vw_jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
+                viewModel.ddlGolonganDarah = addGolonganDarah();
                 viewModel.DataCount = viewModel.List.Count;
 
                 var cacheValue = JsonSerializer.Serialize(viewModel);
@@ -40,6 +43,38 @@ namespace SistemPendataanJemaat.Controllers
             }
 
             return View(viewModel);
+        }
+
+        private List<SelectListItem> addGolonganDarah()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+
+            result.Add(new SelectListItem
+            {
+                Text = "<unknown>",
+                Value = null
+            });
+            result.Add(new SelectListItem{
+                Text = "AB",
+                Value = "AB"
+            });
+            result.Add(new SelectListItem
+            {
+                Text = "A",
+                Value = "A"
+            });
+            result.Add(new SelectListItem
+            {
+                Text = "B",
+                Value = "B"
+            });
+            result.Add(new SelectListItem
+            {
+                Text = "O",
+                Value = "O"
+            });
+
+            return result;
         }
 
         public IActionResult JemaatAddEdit(string id)
@@ -56,7 +91,7 @@ namespace SistemPendataanJemaat.Controllers
 
                 if (haveId)
                 {
-                    viewModel.Single = viewModel.List.Where(p => p.Kelompok_Ibadah_ID == id).FirstOrDefault();
+                    viewModel.Single = viewModel.List.Where(p => p.ID.ToString() == id).FirstOrDefault();
                 }
             }
             catch (Exception ex)
