@@ -24,35 +24,39 @@ namespace SistemPendataanJemaat.Controllers
             string result = code;
             int newRow = lastRow + 1;
 
-            if(newRow < 10)
+            if (newRow < 10)
             {
                 result += "0000";
                 if (code.Length < 5)
                     result += "0";
 
                 result += newRow;
-            } else if(newRow < 100)
+            }
+            else if (newRow < 100)
             {
                 result += "000";
                 if (code.Length < 5)
                     result += "0";
 
                 result += newRow;
-            } else if(newRow < 1000)
+            }
+            else if (newRow < 1000)
             {
                 result += "00";
                 if (code.Length < 5)
                     result += "0";
 
                 result += newRow;
-            } else if(newRow < 10000)
+            }
+            else if (newRow < 10000)
             {
                 result += "0";
                 if (code.Length < 5)
                     result += "0";
 
                 result += newRow;
-            } else
+            }
+            else
             {
                 if (code.Length < 5)
                     result += "0";
@@ -75,7 +79,8 @@ namespace SistemPendataanJemaat.Controllers
 
                 var cacheValue = JsonSerializer.Serialize(viewModel);
                 _cache.SetCache("MasterData_KelompokIbadah", cacheValue);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -99,7 +104,8 @@ namespace SistemPendataanJemaat.Controllers
                 {
                     viewModel.Single = viewModel.List.Where(p => p.Kelompok_Ibadah_ID == id).FirstOrDefault();
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
@@ -218,6 +224,52 @@ namespace SistemPendataanJemaat.Controllers
 
                 var cacheValue = JsonSerializer.Serialize(viewModel);
                 _cache.SetCache("MasterData_Area", cacheValue);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+        #endregion
+
+        #region StatusAnggota
+        public IActionResult StatusAnggotaIndex()
+        {
+            StatusAnggotaViewModel viewModel = new StatusAnggotaViewModel();
+
+            try
+            {
+                var statusanggota = _repository.StatusAnggota.FindAll();
+                viewModel.List = statusanggota.ToList();
+                viewModel.DataCount = viewModel.List.Count;
+
+                var cacheValue = JsonSerializer.Serialize(viewModel);
+                _cache.SetCache("MasterData_StatusAnggota", cacheValue);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+        #endregion
+
+        #region StatusKeaktifan
+        public IActionResult StatusKeaktifanIndex()
+        {
+            StatusKeaktifanViewModel viewModel = new StatusKeaktifanViewModel();
+
+            try
+            {
+                var statuskeaktifan = _repository.StatusKeaktifan.FindAll();
+                viewModel.List = statuskeaktifan.ToList();
+                viewModel.DataCount = viewModel.List.Count;
+
+                var cacheValue = JsonSerializer.Serialize(viewModel);
+                _cache.SetCache("MasterData_StatusKeaktifan", cacheValue);
             }
             catch (Exception ex)
             {

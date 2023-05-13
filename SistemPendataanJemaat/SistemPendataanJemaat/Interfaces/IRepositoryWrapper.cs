@@ -11,6 +11,8 @@ namespace SistemPendataanJemaat.Interfaces
         IAreaRepository Area { get; }
         IKomselRepository Komsel { get; }
         IJemaatRepository Jemaat { get; }
+        IStatusAnggotaRepository StatusAnggota { get; }
+        IStatusKeaktifanRepository StatusKeaktifan { get; }
         IVwJemaatRepository VwJemaat { get; }
         void Save();
     }
