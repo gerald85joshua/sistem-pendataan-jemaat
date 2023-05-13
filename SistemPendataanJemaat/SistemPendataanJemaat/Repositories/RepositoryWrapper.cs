@@ -13,6 +13,12 @@ namespace SistemPendataanJemaat.Repositories
         private IAreaRepository _area;
         private IKomselRepository _komsel;
         private IJemaatRepository _jemaat;
+        private IDdlAreaRepository _ddlArea;
+        private IDdlKomselRepository _ddlKomsel;
+        private IDdlKelompokIbadahRepository _ddlKelompokIbadah;
+        private IDdlStatusAnggotaRepository _ddlStatusAnggota;
+        private IDdlStatusKeaktifanRepository _ddlStatusKeaktifan;
+        private IDdlStatusPernikahanRepository _ddlStatusPernikahan;
         private IVwJemaatRepository _vw_jemaat;
 
         public IKelompokIbadahRepository KelompokIbadah
@@ -60,6 +66,73 @@ namespace SistemPendataanJemaat.Repositories
                 return _jemaat;
             }
         }
+
+        public IDdlAreaRepository DdlArea
+        {
+            get
+            {
+                if (_ddlArea == null)
+                    _ddlArea = new DdlAreaRepository(_repoContext);
+
+                return _ddlArea;
+            }
+        }
+
+        public IDdlKomselRepository DdlKomsel
+        {
+            get
+            {
+                if (_ddlKomsel == null)
+                    _ddlKomsel = new DdlKomselRepository(_repoContext);
+
+                return _ddlKomsel;
+            }
+        }
+
+        public IDdlKelompokIbadahRepository DdlKelompokIbadah
+        {
+            get
+            {
+                if (_ddlKelompokIbadah == null)
+                    _ddlKelompokIbadah = new DdlKelompokIbadahRepository(_repoContext);
+
+                return _ddlKelompokIbadah;
+            }
+        }
+
+        public IDdlStatusAnggotaRepository DdlStatusAnggota
+        {
+            get
+            {
+                if (_ddlStatusAnggota == null)
+                    _ddlStatusAnggota = new DdlStatusAnggotaRepository(_repoContext);
+
+                return _ddlStatusAnggota;
+            }
+        }
+
+        public IDdlStatusKeaktifanRepository DdlStatusKeaktifan
+        {
+            get
+            {
+                if (_ddlStatusKeaktifan == null)
+                    _ddlStatusKeaktifan = new DdlStatusKeaktifanRepository(_repoContext);
+
+                return _ddlStatusKeaktifan;
+            }
+        }
+
+        public IDdlStatusPernikahanRepository DdlStatusPernikahan
+        {
+            get
+            {
+                if (_ddlStatusPernikahan == null)
+                    _ddlStatusPernikahan = new DdlStatusPernikahanRepository(_repoContext);
+
+                return _ddlStatusPernikahan;
+            }
+        }
+
         public IVwJemaatRepository VwJemaat
         {
             get

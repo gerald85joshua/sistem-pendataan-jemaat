@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemPendataanJemaat.Interfaces;
 using SistemPendataanJemaat.Models;
+using SistemPendataanJemaat.Models.Entities;
 using System;
 using System.Text.Json;
 using System.Linq;
@@ -29,9 +30,22 @@ namespace SistemPendataanJemaat.Controllers
             {
                 var jemaat = _repository.Jemaat.FindAll();
                 var vw_jemaat = _repository.VwJemaat.FindAll();
+                var ddl_area = _repository.DdlArea.FindAll();
+                var ddl_komsel = _repository.DdlKomsel.FindAll();
+                var ddl_kelompok_ibadah = _repository.DdlKelompokIbadah.FindAll();
+                var ddl_status_anggota = _repository.DdlStatusAnggota.FindAll();
+                var ddl_status_keaktifan = _repository.DdlStatusKeaktifan.FindAll();
+                var ddl_status_pernikahan = _repository.DdlStatusPernikahan.FindAll();
+
                 viewModel.List = jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
                 viewModel.VwList = vw_jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
-                viewModel.ddlGolonganDarah = addGolonganDarah();
+                viewModel.DdlArea = addDdl(ddl_area.ToList());
+                viewModel.DdlKomsel = addDdl(ddl_komsel.ToList());
+                viewModel.DdlKelompokIbadah = addDdl(ddl_kelompok_ibadah.ToList());
+                viewModel.DdlStatusAnggota = addDdl(ddl_status_anggota.ToList());
+                viewModel.DdlStatusKeaktifan = addDdl(ddl_status_keaktifan.ToList());
+                viewModel.DdlStatusPernikahan = addDdl(ddl_status_pernikahan.ToList());
+                viewModel.DdlGolonganDarah = addGolonganDarah();
                 viewModel.DataCount = viewModel.List.Count;
 
                 var cacheValue = JsonSerializer.Serialize(viewModel);
@@ -43,6 +57,22 @@ namespace SistemPendataanJemaat.Controllers
             }
 
             return View(viewModel);
+        }
+
+        private List<SelectListItem> addDdl(IEnumerable<DdlEntityModel> entities)
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+
+            foreach (var item in entities)
+            {
+                result.Add(new SelectListItem
+                {
+                    Value = item.Value,
+                    Text = item.Text
+                });
+            }
+
+            return result;
         }
 
         private List<SelectListItem> addGolonganDarah()

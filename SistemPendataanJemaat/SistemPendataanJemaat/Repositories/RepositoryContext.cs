@@ -8,6 +8,8 @@ namespace SistemPendataanJemaat.Repositories
     {
         public DbSet<KelompokIbadahEntityModel> KelompokIbadahModels { get; set; }
         public DbSet<JemaatEntityModel> Jemaat { get; set; }
+        public DbSet<AreaEntityModel> Area { get; set; }
+        public DbSet<KomselEntityModel> Komsel { get; set; }
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)
@@ -65,6 +67,42 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Created_Date);
                 u.Property(e => e.Updated_By);
                 u.Property(e => e.Updated_Date);
+            });
+
+            modelBuilder.Entity<DdlAreaEntityModel>(u =>
+            {
+                u.HasKey(e => e.Value);
+                u.Property(e => e.Text);
+            });
+
+            modelBuilder.Entity<DdlKomselEntityModel>(u =>
+            {
+                u.HasKey(e => e.Value);
+                u.Property(e => e.Text);
+            });
+
+            modelBuilder.Entity<DdlKelompokIbadahEntityModel>(u =>
+            {
+                u.HasKey(e => e.Value);
+                u.Property(e => e.Text);
+            });
+
+            modelBuilder.Entity<DdlStatusAnggotaEntityModel>(u =>
+            {
+                u.HasKey(e => e.Value);
+                u.Property(e => e.Text);
+            });
+
+            modelBuilder.Entity<DdlStatusKeaktifanEntityModel>(u =>
+            {
+                u.HasKey(e => e.Value);
+                u.Property(e => e.Text);
+            });
+
+            modelBuilder.Entity<DdlStatusPernikahanEntityModel>(u =>
+            {
+                u.HasKey(e => e.Value);
+                u.Property(e => e.Text);
             });
 
             modelBuilder.Entity<VwJemaatEntityModel>(u =>
