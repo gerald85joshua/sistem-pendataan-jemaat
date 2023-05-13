@@ -20,6 +20,8 @@ namespace SistemPendataanJemaat.Repositories
         private IDdlStatusKeaktifanRepository _ddlStatusKeaktifan;
         private IDdlStatusPernikahanRepository _ddlStatusPernikahan;
         private IVwJemaatRepository _vw_jemaat;
+        private IStatusAnggotaRepository _status_anggota;
+        private IStatusKeaktifanRepository _status_keaktifan;
 
         public IKelompokIbadahRepository KelompokIbadah
         {
@@ -53,6 +55,29 @@ namespace SistemPendataanJemaat.Repositories
                     _komsel= new KomselRepository(_repoContext);
                 }
                 return _komsel;
+            }
+        }
+        public IStatusAnggotaRepository StatusAnggota
+        {
+            get
+            {
+                if (_status_anggota == null)
+                {
+                    _status_anggota = new StatusAnggotaRepository(_repoContext);
+                }
+                return _status_anggota;
+            }
+        }
+
+        public IStatusKeaktifanRepository StatusKeaktifan
+        {
+            get
+            {
+                if (_status_keaktifan == null)
+                {
+                    _status_keaktifan = new StatusKeaktifanRepository(_repoContext);
+                }
+                return _status_keaktifan;
             }
         }
 

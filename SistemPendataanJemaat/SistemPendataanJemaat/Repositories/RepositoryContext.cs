@@ -10,6 +10,8 @@ namespace SistemPendataanJemaat.Repositories
         public DbSet<JemaatEntityModel> Jemaat { get; set; }
         public DbSet<AreaEntityModel> Area { get; set; }
         public DbSet<KomselEntityModel> Komsel { get; set; }
+        public DbSet<StatusAnggotaEntityModel> StatusAnggota { get; set; }
+        public DbSet<StatusKeaktifanEntityModel> StatusKeaktifan { get; set; }
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)
@@ -38,6 +40,20 @@ namespace SistemPendataanJemaat.Repositories
                 u.HasKey(e => e.Komsel_ID);
                 u.Property(e => e.Komsel);
                 u.Property(e => e.PIC_ID);
+                u.Property(e => e.Keterangan);
+            });
+			
+            modelBuilder.Entity<StatusAnggotaEntityModel>(u =>
+            {
+                u.HasKey(e => e.Status_Anggota_ID);
+                u.Property(e => e.Status_Anggota);
+                u.Property(e => e.Keterangan);
+            });
+
+            modelBuilder.Entity<StatusKeaktifanEntityModel>(u =>
+            {
+                u.HasKey(e => e.Status_Keaktifan_ID);
+                u.Property(e => e.Status_Keaktifan);
                 u.Property(e => e.Keterangan);
             });
 

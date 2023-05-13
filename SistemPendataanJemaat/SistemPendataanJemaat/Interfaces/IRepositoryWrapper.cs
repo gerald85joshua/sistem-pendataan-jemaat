@@ -9,7 +9,9 @@ namespace SistemPendataanJemaat.Interfaces
     {
         IKelompokIbadahRepository KelompokIbadah { get; }
         IAreaRepository Area { get; }
-        IKomselRepository Komsel { get; }
+        IKomselRepository Komsel { get; }        
+	IStatusAnggotaRepository StatusAnggota { get; }
+        IStatusKeaktifanRepository StatusKeaktifan { get; }
         IJemaatRepository Jemaat { get; }
         IDdlAreaRepository DdlArea { get; }
         IDdlKomselRepository DdlKomsel { get; }
