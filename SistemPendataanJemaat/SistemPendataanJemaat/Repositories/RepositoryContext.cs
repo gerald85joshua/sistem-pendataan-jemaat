@@ -70,7 +70,6 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Status_Anggota_ID);
                 u.Property(e => e.Status_Keaktifan_ID);
                 u.Property(e => e.Kelompok_Ibadah_ID);
-                u.Property(e => e.Area_ID);
                 u.Property(e => e.Komsel_ID);
                 u.Property(e => e.Tempat_Lahir);
                 u.Property(e => e.Tanggal_Lahir);
@@ -137,8 +136,6 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Status_Keaktifan);
                 u.Property(e => e.Kelompok_Ibadah_ID);
                 u.Property(e => e.Kelompok_Ibadah);
-                u.Property(e => e.Area_ID);
-                u.Property(e => e.Area);
                 u.Property(e => e.Komsel_ID);
                 u.Property(e => e.Komsel);
                 u.Property(e => e.Tempat_Lahir);

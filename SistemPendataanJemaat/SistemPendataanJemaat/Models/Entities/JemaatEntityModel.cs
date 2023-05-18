@@ -47,9 +47,6 @@ namespace SistemPendataanJemaat.Models.Entities
         [Display(Name = "Kelompok Ibadah")]
         public string Kelompok_Ibadah_ID { get; set; }
 
-        [Display(Name = "Area")]
-        public string Area_ID { get; set; }
-
         [Display(Name = "Komsel")]
         public string Komsel_ID { get; set; }
 

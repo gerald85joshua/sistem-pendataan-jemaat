@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SistemPendataanJemaat.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SistemPendataanJemaat.Repositories
 {
@@ -14,11 +16,24 @@ namespace SistemPendataanJemaat.Repositories
             RepositoryContext = repositoryContext;
         }
 
-        public IQueryable<T> FindAll() => RepositoryContext.Set<T>().AsNoTracking();
-        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression) =>
-            RepositoryContext.Set<T>().Where(expression).AsNoTracking();
-        public void Create(T entity) => RepositoryContext.Set<T>().Add(entity);
-        public void Update(T entity) => RepositoryContext.Set<T>().Update(entity);
-        public void Delete(T entity) => RepositoryContext.Set<T>().Remove(entity);
+        public async Task<IEnumerable<T>> FindAll() => await RepositoryContext.Set<T>().ToListAsync();
+
+        public async Task<IEnumerable<T>> FindByCondition(Expression<Func<T, bool>> expression) => await RepositoryContext.Set<T>().Where(expression).ToListAsync();
+
+        public async Task Create(T entity) {
+            await RepositoryContext.Set<T>().AddAsync(entity);
+            await RepositoryContext.SaveChangesAsync();
+        }
+
+        public async Task Update(T entity) { 
+            RepositoryContext.Set<T>().Update(entity);
+            await RepositoryContext.SaveChangesAsync();
+
+        }
+
+        public async Task Delete(T entity) { 
+            RepositoryContext.Set<T>().Remove(entity);
+            await RepositoryContext.SaveChangesAsync();
+        }
     }
 }

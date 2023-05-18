@@ -10,7 +10,6 @@ namespace SistemPendataanJemaat.Models
         public JemaatEntityModel Single { get; set; }
         public List<VwJemaatEntityModel> VwList { get; set; }
         public VwJemaatEntityModel VwSingle { get; set; }
-        public IEnumerable<SelectListItem> DdlArea { get; set; }
         public IEnumerable<SelectListItem> DdlKomsel { get; set; }
         public IEnumerable<SelectListItem> DdlKelompokIbadah { get; set; }
         public IEnumerable<SelectListItem> DdlStatusAnggota { get; set; }

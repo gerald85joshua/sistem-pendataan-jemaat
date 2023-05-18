@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Threading.Tasks;
 
 namespace SistemPendataanJemaat.Controllers
 {
@@ -22,24 +23,23 @@ namespace SistemPendataanJemaat.Controllers
         }
 
         #region Jemaat
-        public IActionResult JemaatIndex()
+        public async Task<IActionResult> JemaatIndex()
         {
             JemaatViewModel viewModel = new JemaatViewModel();
 
             try
             {
-                var jemaat = _repository.Jemaat.FindAll();
-                var vw_jemaat = _repository.VwJemaat.FindAll();
-                var ddl_area = _repository.DdlArea.FindAll();
-                var ddl_komsel = _repository.DdlKomsel.FindAll();
-                var ddl_kelompok_ibadah = _repository.DdlKelompokIbadah.FindAll();
-                var ddl_status_anggota = _repository.DdlStatusAnggota.FindAll();
-                var ddl_status_keaktifan = _repository.DdlStatusKeaktifan.FindAll();
-                var ddl_status_pernikahan = _repository.DdlStatusPernikahan.FindAll();
+                var jemaat = await _repository.Jemaat.FindAll();
+                var vw_jemaat = await _repository.VwJemaat.FindAll();
+                var ddl_area = await _repository.DdlArea.FindAll();
+                var ddl_komsel = await _repository.DdlKomsel.FindAll();
+                var ddl_kelompok_ibadah = await _repository.DdlKelompokIbadah.FindAll();
+                var ddl_status_anggota = await _repository.DdlStatusAnggota.FindAll();
+                var ddl_status_keaktifan = await _repository.DdlStatusKeaktifan.FindAll();
+                var ddl_status_pernikahan = await _repository.DdlStatusPernikahan.FindAll();
 
                 viewModel.List = jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
                 viewModel.VwList = vw_jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
-                viewModel.DdlArea = addDdl(ddl_area.ToList());
                 viewModel.DdlKomsel = addDdl(ddl_komsel.ToList());
                 viewModel.DdlKelompokIbadah = addDdl(ddl_kelompok_ibadah.ToList());
                 viewModel.DdlStatusAnggota = addDdl(ddl_status_anggota.ToList());
@@ -63,12 +63,17 @@ namespace SistemPendataanJemaat.Controllers
         {
             List<SelectListItem> result = new List<SelectListItem>();
 
+            result.Add(new SelectListItem
+            {
+                Text = "-",
+                Value = null
+            });
             foreach (var item in entities)
             {
                 result.Add(new SelectListItem
                 {
-                    Value = item.Value,
-                    Text = item.Text
+                    Text = item.Text,
+                    Value = item.Value
                 });
             }
 
@@ -81,7 +86,7 @@ namespace SistemPendataanJemaat.Controllers
 
             result.Add(new SelectListItem
             {
-                Text = "<unknown>",
+                Text = "-",
                 Value = null
             });
             result.Add(new SelectListItem{
@@ -122,6 +127,10 @@ namespace SistemPendataanJemaat.Controllers
                 if (haveId)
                 {
                     viewModel.Single = viewModel.List.Where(p => p.ID.ToString() == id).FirstOrDefault();
+                } else
+                {
+                    viewModel.Single = new JemaatEntityModel();
+                    viewModel.Single.Tanggal_Lahir = DateTime.Now;
                 }
             }
             catch (Exception ex)
@@ -134,7 +143,7 @@ namespace SistemPendataanJemaat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult JemaatAddEdit(JemaatViewModel req)
+        public async Task<IActionResult> JemaatAddEdit(JemaatViewModel req)
         {
             var jemaat = req.Single;
 
@@ -143,14 +152,18 @@ namespace SistemPendataanJemaat.Controllers
                 if (jemaat.ID == null)
                 {
                     jemaat.ID = Guid.NewGuid();
-                    _repository.Jemaat.Create(jemaat);
+                    jemaat.Created_By = "System";
+                    jemaat.Created_Date = DateTime.Now;
+                    jemaat.Updated_By = "System";
+                    jemaat.Updated_Date = DateTime.Now;
+                    await _repository.Jemaat.Create(jemaat);
                 }
                 else
                 {
-                    _repository.Jemaat.Update(jemaat);
+                    jemaat.Updated_Date = DateTime.Now;
+                    jemaat.Updated_By = "System";
+                    await _repository.Jemaat.Update(jemaat);
                 }
-
-                _repository.Save();
             }
             catch (Exception ex)
             {
@@ -180,7 +193,7 @@ namespace SistemPendataanJemaat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult JemaatDelete(string id)
+        public async Task<IActionResult> JemaatDelete(string id)
         {
             JemaatViewModel viewModel = new JemaatViewModel();
 
@@ -189,8 +202,7 @@ namespace SistemPendataanJemaat.Controllers
                 var cacheValue = _cache.GetCache("DataJemaat_Jemaat");
                 viewModel = JsonSerializer.Deserialize<JemaatViewModel>(cacheValue);
                 var jemaat = viewModel.List.Where(p => p.ID.ToString() == id).FirstOrDefault();
-                _repository.Jemaat.Delete(jemaat);
-                _repository.Save();
+                await _repository.Jemaat.Delete(jemaat);
             }
             catch (Exception ex)
             {

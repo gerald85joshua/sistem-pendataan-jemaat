@@ -4,6 +4,7 @@ using SistemPendataanJemaat.Models;
 using System;
 using System.Text.Json;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SistemPendataanJemaat.Controllers
 {
@@ -67,13 +68,13 @@ namespace SistemPendataanJemaat.Controllers
             return result;
         }
 
-        public IActionResult KelompokIbadahIndex()
+        public async Task<IActionResult> KelompokIbadahIndex()
         {
             KelompokIbadahViewModel viewModel = new KelompokIbadahViewModel();
 
             try
             {
-                var kelompokIbadah = _repository.KelompokIbadah.FindAll();
+                var kelompokIbadah = await _repository.KelompokIbadah.FindAll();
                 viewModel.List = kelompokIbadah.ToList();
                 viewModel.DataCount = viewModel.List.Count;
 
@@ -115,7 +116,7 @@ namespace SistemPendataanJemaat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult KelompokIbadahAddEdit(KelompokIbadahViewModel req)
+        public async Task<IActionResult> KelompokIbadahAddEdit(KelompokIbadahViewModel req)
         {
             KelompokIbadahViewModel viewModel = new KelompokIbadahViewModel();
             var kelompokIbadah = req.Single;
@@ -130,11 +131,11 @@ namespace SistemPendataanJemaat.Controllers
                     var lastRow = int.Parse(lastID.Replace("KELIB", string.Empty));
 
                     kelompokIbadah.Kelompok_Ibadah_ID = GenerateId("KELIB", lastRow);
-                    _repository.KelompokIbadah.Create(kelompokIbadah);
+                    await _repository.KelompokIbadah.Create(kelompokIbadah);
                 }
                 else
                 {
-                    _repository.KelompokIbadah.Update(kelompokIbadah);
+                    await _repository.KelompokIbadah.Update(kelompokIbadah);
                 }
 
                 _repository.Save();
@@ -167,7 +168,7 @@ namespace SistemPendataanJemaat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult KelompokIbadahDelete(string id)
+        public async Task<IActionResult> KelompokIbadahDelete(string id)
         {
             KelompokIbadahViewModel viewModel = new KelompokIbadahViewModel();
 
@@ -176,8 +177,7 @@ namespace SistemPendataanJemaat.Controllers
                 var cacheValue = _cache.GetCache("MasterData_KelompokIbadah");
                 viewModel = JsonSerializer.Deserialize<KelompokIbadahViewModel>(cacheValue);
                 var kelompokIbadah = viewModel.List.Where(p => p.Kelompok_Ibadah_ID == id).FirstOrDefault();
-                _repository.KelompokIbadah.Delete(kelompokIbadah);
-                _repository.Save();
+                await _repository.KelompokIbadah.Delete(kelompokIbadah);
             }
             catch (Exception ex)
             {
@@ -189,13 +189,13 @@ namespace SistemPendataanJemaat.Controllers
         #endregion
 
         #region Area
-        public IActionResult AreaIndex()
+        public async Task<IActionResult> AreaIndex()
         {
             AreaViewModel viewModel = new AreaViewModel();
 
             try
             {
-                var area = _repository.Area.FindAll();
+                var area = await _repository.Area.FindAll();
                 viewModel.List = area.ToList();
                 viewModel.DataCount = viewModel.List.Count;
 
@@ -212,13 +212,13 @@ namespace SistemPendataanJemaat.Controllers
         #endregion
 
         #region Komsel
-        public IActionResult KomselIndex()
+        public async Task<IActionResult> KomselIndex()
         {
             KomselViewModel viewModel = new KomselViewModel();
 
             try
             {
-                var komsel = _repository.Komsel.FindAll();
+                var komsel = await _repository.Komsel.FindAll();
                 viewModel.List = komsel.ToList();
                 viewModel.DataCount = viewModel.List.Count;
 
@@ -235,13 +235,13 @@ namespace SistemPendataanJemaat.Controllers
         #endregion
 
         #region StatusAnggota
-        public IActionResult StatusAnggotaIndex()
+        public async Task<IActionResult> StatusAnggotaIndex()
         {
             StatusAnggotaViewModel viewModel = new StatusAnggotaViewModel();
 
             try
             {
-                var statusanggota = _repository.StatusAnggota.FindAll();
+                var statusanggota = await _repository.StatusAnggota.FindAll();
                 viewModel.List = statusanggota.ToList();
                 viewModel.DataCount = viewModel.List.Count;
 
@@ -258,13 +258,13 @@ namespace SistemPendataanJemaat.Controllers
         #endregion
 
         #region StatusKeaktifan
-        public IActionResult StatusKeaktifanIndex()
+        public async Task<IActionResult> StatusKeaktifanIndex()
         {
             StatusKeaktifanViewModel viewModel = new StatusKeaktifanViewModel();
 
             try
             {
-                var statuskeaktifan = _repository.StatusKeaktifan.FindAll();
+                var statuskeaktifan = await _repository.StatusKeaktifan.FindAll();
                 viewModel.List = statuskeaktifan.ToList();
                 viewModel.DataCount = viewModel.List.Count;
 
