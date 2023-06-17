@@ -2,6 +2,32 @@
 @{
     ViewData["Title"] = "Jemaat";
     var num = 0;
+
+    string GetBgPoint(string StatusKeaktifanID)
+    {
+        if (StatusKeaktifanID == "JA")
+        {
+            return "bg-success";
+        }
+        else if (StatusKeaktifanID == "JM")
+        {
+            return "bg-dark";
+        }
+        else if (StatusKeaktifanID == "JS")
+        {
+            return "bg-warning";
+        }
+        else if (StatusKeaktifanID == "JX")
+        {
+            return "bg-secondary";
+        }
+        else if (StatusKeaktifanID == "TA")
+        {
+            return "bg-danger";
+        }
+
+        return "bg-white";
+    }
 }
 
 <div class="container-fluid">
@@ -16,6 +42,7 @@
                         <th scope="col">Nama Lengkap</th>
                         <th scope="col">Jenis Kelamin</th>
                         <th scope="col">Komsel</th>
+                        <th scope="col">Status Keaktifan</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -28,6 +55,7 @@
                             <td> @item.Nama_Lengkap </td>
                             <td> @item.Jenis_Kelamin </td>
                             <td> @item.Komsel </td>
+                            <td> <span class="badge badge-lg badge-dot"> <i class="@GetBgPoint(item.Status_Keaktifan_ID)"></i>@item.Status_Keaktifan</span></td>
                             <td>
                                 <form asp-action="JemaatDelete">
                                     <a asp-action="JemaatDetail" asp-route-id="@item.ID" class="btn btn-sm btn-neutral">View</a>
