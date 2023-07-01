@@ -25,31 +25,13 @@ namespace SistemPendataanJemaat.Controllers
         #region Jemaat
         public async Task<IActionResult> JemaatIndex()
         {
-            JemaatViewModel viewModel = new JemaatViewModel();
+            JemaatViewModel viewModel;
 
             try
             {
-                var jemaat = await _repository.Jemaat.FindAll();
-                var vw_jemaat = await _repository.VwJemaat.FindAll();
-                var ddl_area = await _repository.DdlArea.FindAll();
-                var ddl_komsel = await _repository.DdlKomsel.FindAll();
-                var ddl_kelompok_ibadah = await _repository.DdlKelompokIbadah.FindAll();
-                var ddl_status_anggota = await _repository.DdlStatusAnggota.FindAll();
-                var ddl_status_keaktifan = await _repository.DdlStatusKeaktifan.FindAll();
-                var ddl_status_pernikahan = await _repository.DdlStatusPernikahan.FindAll();
-
-                viewModel.List = jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
-                viewModel.VwList = vw_jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
-                viewModel.DdlKomsel = addDdl(ddl_komsel.ToList());
-                viewModel.DdlKelompokIbadah = addDdl(ddl_kelompok_ibadah.ToList());
-                viewModel.DdlStatusAnggota = addDdl(ddl_status_anggota.ToList());
-                viewModel.DdlStatusKeaktifan = addDdl(ddl_status_keaktifan.ToList());
-                viewModel.DdlStatusPernikahan = addDdl(ddl_status_pernikahan.ToList());
-                viewModel.DdlGolonganDarah = addGolonganDarah();
-                viewModel.DataCount = viewModel.List.Count;
-
-                var cacheValue = JsonSerializer.Serialize(viewModel);
-                _cache.SetCache("DataJemaat_Jemaat", cacheValue);
+                await LoadData();
+                var cacheValue = _cache.GetCache("DataJemaat_Jemaat");
+                viewModel = JsonSerializer.Deserialize<JemaatViewModel>(cacheValue);
             }
             catch (Exception ex)
             {
@@ -57,6 +39,32 @@ namespace SistemPendataanJemaat.Controllers
             }
 
             return View(viewModel);
+        }
+
+        private async Task LoadData()
+        {
+            JemaatViewModel viewModel = new JemaatViewModel();
+            var jemaat = await _repository.Jemaat.FindAll();
+            var vw_jemaat = await _repository.VwJemaat.FindAll();
+            var ddl_area = await _repository.DdlArea.FindAll();
+            var ddl_komsel = await _repository.DdlKomsel.FindAll();
+            var ddl_kelompok_ibadah = await _repository.DdlKelompokIbadah.FindAll();
+            var ddl_status_anggota = await _repository.DdlStatusAnggota.FindAll();
+            var ddl_status_keaktifan = await _repository.DdlStatusKeaktifan.FindAll();
+            var ddl_status_pernikahan = await _repository.DdlStatusPernikahan.FindAll();
+
+            viewModel.List = jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
+            viewModel.VwList = vw_jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
+            viewModel.DdlKomsel = addDdl(ddl_komsel.ToList());
+            viewModel.DdlKelompokIbadah = addDdl(ddl_kelompok_ibadah.ToList());
+            viewModel.DdlStatusAnggota = addDdl(ddl_status_anggota.ToList());
+            viewModel.DdlStatusKeaktifan = addDdl(ddl_status_keaktifan.ToList());
+            viewModel.DdlStatusPernikahan = addDdl(ddl_status_pernikahan.ToList());
+            viewModel.DdlGolonganDarah = addGolonganDarah();
+            viewModel.DataCount = viewModel.List.Count;
+
+            var cacheValue = JsonSerializer.Serialize(viewModel);
+            _cache.SetCache("DataJemaat_Jemaat", cacheValue);
         }
 
         private List<SelectListItem> addDdl(IEnumerable<DdlEntityModel> entities)
@@ -116,7 +124,7 @@ namespace SistemPendataanJemaat.Controllers
         {
             bool haveId = !string.IsNullOrEmpty(id);
             ViewBag.PageName = haveId ? "Edit Data Jemaat" : "Create Data Jemaat";
-            ViewBag.IsEdit = haveId ? true : false;
+            ViewBag.IsEdit = haveId;
             JemaatViewModel viewModel = new JemaatViewModel();
 
             try
@@ -173,13 +181,19 @@ namespace SistemPendataanJemaat.Controllers
             return RedirectToAction("JemaatIndex");
         }
 
-        public IActionResult JemaatDetail(string id)
+        public async Task<IActionResult> JemaatDetail(string id)
         {
             JemaatViewModel viewModel = new JemaatViewModel();
 
             try
             {
                 var cacheValue = _cache.GetCache("DataJemaat_Jemaat");
+
+                if (cacheValue == null)
+                {
+                    await LoadData();
+                    cacheValue = _cache.GetCache("DataJemaat_Jemaat");
+                }
                 viewModel = JsonSerializer.Deserialize<JemaatViewModel>(cacheValue);
                 viewModel.VwSingle = viewModel.VwList.Where(p => p.ID.ToString() == id).FirstOrDefault();
             }
