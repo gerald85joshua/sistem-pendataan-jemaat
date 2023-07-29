@@ -14,14 +14,16 @@ namespace SistemPendataanJemaat.Repositories
         private IKomselRepository _komsel;
         private IJemaatRepository _jemaat;
         private IDdlAreaRepository _ddlArea;
+        private IDdlJemaatRepository _ddlJemaat;
         private IDdlKomselRepository _ddlKomsel;
         private IDdlKelompokIbadahRepository _ddlKelompokIbadah;
         private IDdlStatusAnggotaRepository _ddlStatusAnggota;
         private IDdlStatusKeaktifanRepository _ddlStatusKeaktifan;
         private IDdlStatusPernikahanRepository _ddlStatusPernikahan;
-        private IVwJemaatRepository _vw_jemaat;
-        private IStatusAnggotaRepository _status_anggota;
-        private IStatusKeaktifanRepository _status_keaktifan;
+        private IVwAreaRepository _vwArea;
+        private IVwJemaatRepository _vwJemaat;
+        private IStatusAnggotaRepository _statusAnggota;
+        private IStatusKeaktifanRepository _statusKeaktifan;
 
         public IKelompokIbadahRepository KelompokIbadah
         {
@@ -38,7 +40,7 @@ namespace SistemPendataanJemaat.Repositories
         {
             get
             {
-                if (_komsel == null)
+                if (_area == null)
                 {
                     _area = new AreaRepository(_repoContext);
                 }
@@ -61,11 +63,11 @@ namespace SistemPendataanJemaat.Repositories
         {
             get
             {
-                if (_status_anggota == null)
+                if (_statusAnggota == null)
                 {
-                    _status_anggota = new StatusAnggotaRepository(_repoContext);
+                    _statusAnggota = new StatusAnggotaRepository(_repoContext);
                 }
-                return _status_anggota;
+                return _statusAnggota;
             }
         }
 
@@ -73,11 +75,11 @@ namespace SistemPendataanJemaat.Repositories
         {
             get
             {
-                if (_status_keaktifan == null)
+                if (_statusKeaktifan == null)
                 {
-                    _status_keaktifan = new StatusKeaktifanRepository(_repoContext);
+                    _statusKeaktifan = new StatusKeaktifanRepository(_repoContext);
                 }
-                return _status_keaktifan;
+                return _statusKeaktifan;
             }
         }
 
@@ -100,6 +102,17 @@ namespace SistemPendataanJemaat.Repositories
                     _ddlArea = new DdlAreaRepository(_repoContext);
 
                 return _ddlArea;
+            }
+        }
+
+        public IDdlJemaatRepository DdlJemaat
+        {
+            get
+            {
+                if (_ddlJemaat == null)
+                    _ddlJemaat = new DdlJemaatRepository(_repoContext);
+
+                return _ddlJemaat;
             }
         }
 
@@ -158,14 +171,26 @@ namespace SistemPendataanJemaat.Repositories
             }
         }
 
+        public IVwAreaRepository VwArea
+        {
+            get
+            {
+                if (_vwArea == null)
+                {
+                    _vwArea = new VwAreaRepository(_repoContext);
+                }
+                return _vwArea;
+            }
+        }
+
         public IVwJemaatRepository VwJemaat
         {
             get
             {
-                if (_vw_jemaat == null)
-                    _vw_jemaat = new VwJemaatRepository(_repoContext);
+                if (_vwJemaat == null)
+                    _vwJemaat = new VwJemaatRepository(_repoContext);
 
-                return _vw_jemaat;
+                return _vwJemaat;
             }
         }
 

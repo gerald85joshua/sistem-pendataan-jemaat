@@ -8,6 +8,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
+using SistemPendataanJemaat.Helper;
 
 namespace SistemPendataanJemaat.Controllers
 {
@@ -55,37 +56,16 @@ namespace SistemPendataanJemaat.Controllers
 
             viewModel.List = jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
             viewModel.VwList = vw_jemaat.OrderBy(o => o.Nama_Lengkap).ToList();
-            viewModel.DdlKomsel = addDdl(ddl_komsel.ToList());
-            viewModel.DdlKelompokIbadah = addDdl(ddl_kelompok_ibadah.ToList());
-            viewModel.DdlStatusAnggota = addDdl(ddl_status_anggota.ToList());
-            viewModel.DdlStatusKeaktifan = addDdl(ddl_status_keaktifan.ToList());
-            viewModel.DdlStatusPernikahan = addDdl(ddl_status_pernikahan.ToList());
+            viewModel.DdlKomsel = GeneralHelper.addDdl(ddl_komsel.ToList());
+            viewModel.DdlKelompokIbadah = GeneralHelper.addDdl(ddl_kelompok_ibadah.ToList());
+            viewModel.DdlStatusAnggota = GeneralHelper.addDdl(ddl_status_anggota.ToList());
+            viewModel.DdlStatusKeaktifan = GeneralHelper.addDdl(ddl_status_keaktifan.ToList());
+            viewModel.DdlStatusPernikahan = GeneralHelper.addDdl(ddl_status_pernikahan.ToList());
             viewModel.DdlGolonganDarah = addGolonganDarah();
             viewModel.DataCount = viewModel.List.Count;
 
             var cacheValue = JsonSerializer.Serialize(viewModel);
             _cache.SetCache("DataJemaat_Jemaat", cacheValue);
-        }
-
-        private List<SelectListItem> addDdl(IEnumerable<DdlEntityModel> entities)
-        {
-            List<SelectListItem> result = new List<SelectListItem>();
-
-            result.Add(new SelectListItem
-            {
-                Text = "-",
-                Value = null
-            });
-            foreach (var item in entities)
-            {
-                result.Add(new SelectListItem
-                {
-                    Text = item.Text,
-                    Value = item.Value
-                });
-            }
-
-            return result;
         }
 
         private List<SelectListItem> addGolonganDarah()

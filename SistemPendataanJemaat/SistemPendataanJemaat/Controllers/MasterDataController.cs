@@ -5,6 +5,7 @@ using System;
 using System.Text.Json;
 using System.Linq;
 using System.Threading.Tasks;
+using SistemPendataanJemaat.Helper;
 
 namespace SistemPendataanJemaat.Controllers
 {
@@ -20,54 +21,6 @@ namespace SistemPendataanJemaat.Controllers
         }
 
         #region Kelompok Ibadah
-        private static string GenerateId(string code, int lastRow)
-        {
-            string result = code;
-            int newRow = lastRow + 1;
-
-            if (newRow < 10)
-            {
-                result += "0000";
-                if (code.Length < 5)
-                    result += "0";
-
-                result += newRow;
-            }
-            else if (newRow < 100)
-            {
-                result += "000";
-                if (code.Length < 5)
-                    result += "0";
-
-                result += newRow;
-            }
-            else if (newRow < 1000)
-            {
-                result += "00";
-                if (code.Length < 5)
-                    result += "0";
-
-                result += newRow;
-            }
-            else if (newRow < 10000)
-            {
-                result += "0";
-                if (code.Length < 5)
-                    result += "0";
-
-                result += newRow;
-            }
-            else
-            {
-                if (code.Length < 5)
-                    result += "0";
-
-                result += newRow;
-            }
-
-            return result;
-        }
-
         public async Task<IActionResult> KelompokIbadahIndex()
         {
             KelompokIbadahViewModel viewModel = new KelompokIbadahViewModel();
@@ -130,7 +83,7 @@ namespace SistemPendataanJemaat.Controllers
                     var lastID = viewModel.List.OrderBy(o => o.Kelompok_Ibadah_ID).LastOrDefault().Kelompok_Ibadah_ID;
                     var lastRow = int.Parse(lastID.Replace("KELIB", string.Empty));
 
-                    kelompokIbadah.Kelompok_Ibadah_ID = GenerateId("KELIB", lastRow);
+                    kelompokIbadah.Kelompok_Ibadah_ID = GeneralHelper.GenerateId("KELIB", lastRow);
                     await _repository.KelompokIbadah.Create(kelompokIbadah);
                 }
                 else
@@ -196,7 +149,12 @@ namespace SistemPendataanJemaat.Controllers
             try
             {
                 var area = await _repository.Area.FindAll();
+                var vw_area = await _repository.VwArea.FindAll();
+                var ddl_jemaat = await _repository.DdlJemaat.FindAll();
+
                 viewModel.List = area.ToList();
+                viewModel.VwList = vw_area.ToList();
+                viewModel.DdlJemaat = GeneralHelper.addDdl(ddl_jemaat.ToList());
                 viewModel.DataCount = viewModel.List.Count;
 
                 var cacheValue = JsonSerializer.Serialize(viewModel);
@@ -208,6 +166,104 @@ namespace SistemPendataanJemaat.Controllers
             }
 
             return View(viewModel);
+        }
+
+        public IActionResult AreaAddEdit(string id)
+        {
+            bool haveId = !string.IsNullOrEmpty(id);
+            ViewBag.PageName = haveId ? "Edit Area" : "Create Area";
+            ViewBag.IsEdit = haveId;
+            AreaViewModel viewModel = new AreaViewModel();
+
+            try
+            {
+                var cacheValue = _cache.GetCache("MasterData_Area");
+                viewModel = JsonSerializer.Deserialize<AreaViewModel>(cacheValue);
+
+                if (haveId)
+                {
+                    viewModel.Single = viewModel.List.Where(p => p.Area_ID == id).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AreaAddEdit(AreaViewModel req)
+        {
+            AreaViewModel viewModel = new AreaViewModel();
+            var area = req.Single;
+
+            try
+            {
+                if (string.IsNullOrEmpty(area.Area_ID))
+                {
+                    var cacheValue = _cache.GetCache("MasterData_Area");
+                    viewModel = JsonSerializer.Deserialize<AreaViewModel>(cacheValue);
+                    var lastID = viewModel.List.OrderBy(o => o.Area_ID).LastOrDefault().Area_ID;
+                    var lastRow = int.Parse(lastID.Replace("AREA", string.Empty));
+
+                    area.Area_ID = GeneralHelper.GenerateId("AREA", lastRow);
+                    await _repository.Area.Create(area);
+                }
+                else
+                {
+                    await _repository.Area.Update(area);
+                }
+
+                _repository.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return RedirectToAction("AreaIndex");
+        }
+
+        public IActionResult AreaDetail(string id)
+        {
+            AreaViewModel viewModel = new AreaViewModel();
+
+            try
+            {
+                var cacheValue = _cache.GetCache("MasterData_Area");
+                viewModel = JsonSerializer.Deserialize<AreaViewModel>(cacheValue);
+                viewModel.VwSingle = viewModel.VwList.Where(p => p.Area_ID == id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AreaDelete(string id)
+        {
+            AreaViewModel viewModel = new AreaViewModel();
+
+            try
+            {
+                var cacheValue = _cache.GetCache("MasterData_Area");
+                viewModel = JsonSerializer.Deserialize<AreaViewModel>(cacheValue);
+                var area = viewModel.List.Where(p => p.Area_ID == id).FirstOrDefault();
+                await _repository.Area.Delete(area);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return RedirectToAction("AreaIndex");
         }
         #endregion
 

@@ -90,6 +90,12 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Text);
             });
 
+            modelBuilder.Entity<DdlJemaatEntityModel>(u =>
+            {
+                u.HasKey(e => e.Value);
+                u.Property(e => e.Text);
+            });
+
             modelBuilder.Entity<DdlKomselEntityModel>(u =>
             {
                 u.HasKey(e => e.Value);
@@ -118,6 +124,15 @@ namespace SistemPendataanJemaat.Repositories
             {
                 u.HasKey(e => e.Value);
                 u.Property(e => e.Text);
+            });
+
+            modelBuilder.Entity<VwAreaEntityModel>(u =>
+            {
+                u.HasKey(e => e.Area_ID);
+                u.Property(e => e.Area);
+                u.Property(e => e.PIC_ID);
+                u.Property(e => e.PIC);
+                u.Property(e => e.Keterangan);
             });
 
             modelBuilder.Entity<VwJemaatEntityModel>(u =>

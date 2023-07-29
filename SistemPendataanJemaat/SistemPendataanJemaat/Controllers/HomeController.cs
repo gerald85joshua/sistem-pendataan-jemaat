@@ -34,7 +34,7 @@ namespace SistemPendataanJemaat.Controllers
             {
                 var ddl_komsel = await _repository.DdlKomsel.FindAll();
                 viewModel.SearchTriggered = true;
-                viewModel.DdlKomsel = DdlHelper.addDdl(ddl_komsel);
+                viewModel.DdlKomsel = GeneralHelper.addDdl(ddl_komsel);
                 viewModel.VwList = new List<VwJemaatEntityModel>();
             } else
             {

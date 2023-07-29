@@ -1,0 +1,31 @@
+﻿@model AreaViewModel
+@{
+    ViewData["Title"] = "Detail Area";
+}
+
+<div class="container-fluid">
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Area)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Area)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.PIC)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.PIC)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Keterangan)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Keterangan)
+        </dd>
+    </dl>
+    <div>
+        <a class="btn btn-primary" asp-action="KelompokIbadahAddEdit" asp-route-id="@Model.VwSingle.Area_ID">Edit</a>
+        <a class="btn btn-neutral" asp-action="KelompokIbadahIndex">Back</a>
+    </div>
+</div>
