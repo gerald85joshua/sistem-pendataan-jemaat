@@ -1,0 +1,38 @@
+﻿@model AreaViewModel
+@{
+    ViewData["Title"] = ViewBag.PageName;
+}
+
+<div class="container-fluid">
+    <form asp-action="AreaAddEdit">
+        @if (@ViewBag.IsEdit)
+        {
+            <input type="hidden" asp-for="Single.Area_ID" />
+        }
+        <div class="form-group">
+            <label asp-for="Single.Area" class="control-label"></label>
+            <input asp-for="Single.Area" class="form-control" />
+            <span asp-validation-for="Single.Area" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.PIC_ID" class="control-label"></label>
+            @Html.DropDownListFor(m => m.Single.PIC_ID, Model.DdlJemaat, "Pilih PIC..", new { @class = "form-control select2" })
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Keterangan" class="control-label"></label>
+            <input asp-for="Single.Keterangan" class="form-control" />
+            <span asp-validation-for="Single.Keterangan" class="text-danger"></span>
+        </div>
+        <br/><hr/><br/>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save" data-confirm="Anda yakin ingin menyimnpan data Area?" />
+            <a class="btn btn-neutral" asp-action="AreaIndex">Back</a>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".select2").select2();
+    });
+</script>

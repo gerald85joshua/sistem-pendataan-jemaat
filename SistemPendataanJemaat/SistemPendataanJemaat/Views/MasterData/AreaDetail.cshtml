@@ -12,10 +12,10 @@
             @Html.DisplayFor(model => model.VwSingle.Area)
         </dd>
         <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.PIC)
+            @Html.DisplayNameFor(model => model.VwSingle.Nama_Lengkap_PIC)
         </dt>
         <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.PIC)
+            @Html.DisplayFor(model => model.VwSingle.Nama_Lengkap_PIC)
         </dd>
         <dt class="col-sm-3">
             @Html.DisplayNameFor(model => model.VwSingle.Keterangan)
@@ -25,7 +25,7 @@
         </dd>
     </dl>
     <div>
-        <a class="btn btn-primary" asp-action="KelompokIbadahAddEdit" asp-route-id="@Model.VwSingle.Area_ID">Edit</a>
-        <a class="btn btn-neutral" asp-action="KelompokIbadahIndex">Back</a>
+        <a class="btn btn-primary" asp-action="AreaAddEdit" asp-route-id="@Model.VwSingle.Area_ID">Edit</a>
+        <a class="btn btn-neutral" asp-action="AreaIndex">Back</a>
     </div>
 </div>

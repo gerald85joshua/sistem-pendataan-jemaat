@@ -74,7 +74,7 @@ namespace SistemPendataanJemaat.Controllers
 
             result.Add(new SelectListItem
             {
-                Text = "-",
+                Text = "Pilih golongan darah..",
                 Value = null
             });
             result.Add(new SelectListItem{

@@ -16,7 +16,10 @@ namespace SistemPendataanJemaat.Models.Entities
         public string PIC_ID { get; set; }
 
         [Display(Name = "PIC")]
-        public string PIC { get; set; }
+        public string Nama_Panggilan_PIC { get; set; }
+
+        [Display(Name = "PIC")]
+        public string Nama_Lengkap_PIC { get; set; }
 
         [Display(Name = "Keterangan")]
         public string Keterangan { get; set; }

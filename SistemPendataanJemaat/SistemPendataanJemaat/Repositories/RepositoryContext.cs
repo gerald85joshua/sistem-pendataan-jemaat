@@ -131,7 +131,8 @@ namespace SistemPendataanJemaat.Repositories
                 u.HasKey(e => e.Area_ID);
                 u.Property(e => e.Area);
                 u.Property(e => e.PIC_ID);
-                u.Property(e => e.PIC);
+                u.Property(e => e.Nama_Panggilan_PIC);
+                u.Property(e => e.Nama_Lengkap_PIC);
                 u.Property(e => e.Keterangan);
             });
 

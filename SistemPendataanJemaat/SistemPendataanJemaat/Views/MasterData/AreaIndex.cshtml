@@ -1,6 +1,6 @@
 ﻿@model AreaViewModel
 @{
-    ViewData["Title"] = "Master Data";
+    ViewData["Title"] = "Area";
     var num = 0;
 }
 
@@ -26,7 +26,7 @@
                         <tr>
                             <td> @num. </td>
                             <td> @item.Area </td>
-                            <td> @item.PIC </td>
+                            <td> @item.Nama_Panggilan_PIC </td>
                             <td> @item.Keterangan </td>
                             <td>
                                 <form asp-action="AreaDelete">

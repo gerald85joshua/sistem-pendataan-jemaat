@@ -19,8 +19,8 @@ namespace SistemPendataanJemaat.Models.Entities
         [StringLength(100, ErrorMessage = "Nama Lengkap can't be longer than 100 characters")]
         public string Nama_Lengkap { get; set; }
 
-        [Display(Name = "Nama Lengkap")]
-        [StringLength(50, ErrorMessage = "Nama Lengkap can't be longer than 50 characters")]
+        [Display(Name = "Nama Panggilan")]
+        [StringLength(50, ErrorMessage = "Nama Panggilan can't be longer than 50 characters")]
         public string Nama_Panggilan { get; set; }
 
         [Display(Name = "Jenis Kelamin")]
