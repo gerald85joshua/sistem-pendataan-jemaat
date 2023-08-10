@@ -4,24 +4,28 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemPendataanJemaat.Models.Entities
 {
-    [Table("tbl_Komsel")]
-    public class KomselEntityModel
+    [Table("vw_komsel")]
+    public class VwKomselEntityModel
     {
         public string Komsel_ID { get; set; }
 
         [Display(Name = "Komsel")]
-        [Required(ErrorMessage = "Komsel is required")]
-        [StringLength(100, ErrorMessage = "Komsel can't be longer than 100 characters")]
         public string Komsel { get; set; }
-
-        [Display(Name = "Area")]
         public string Area_ID { get; set; }
 
-        [Display(Name = "PIC")]
+        [Display(Name = "Area")]
+        public string Area { get; set; }
+
+        [Display(Name = "PIC_ID")]
         public string PIC_ID { get; set; }
 
+        [Display(Name = "PIC")]
+        public string Nama_Panggilan_PIC { get; set; }
+
+        [Display(Name = "PIC")]
+        public string Nama_Lengkap_PIC { get; set; }
+
         [Display(Name = "Keterangan")]
-        [StringLength(200, ErrorMessage = "Keterangan can't be longer than 200 characters")]
         public string Keterangan { get; set; }
     }
 }

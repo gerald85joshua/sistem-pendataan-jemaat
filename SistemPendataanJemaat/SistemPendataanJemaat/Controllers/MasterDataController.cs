@@ -275,11 +275,18 @@ namespace SistemPendataanJemaat.Controllers
             try
             {
                 var komsel = await _repository.Komsel.FindAll();
-                viewModel.List = komsel.ToList();
+                var vw_komsel = await _repository.VwKomsel.FindAll();
+                var ddl_area = await _repository.DdlArea.FindAll();
+                var ddl_jemaat = await _repository.DdlJemaat.FindAll();
+
+                viewModel.List = komsel.OrderBy(o => o.Komsel).ToList();
+                viewModel.VwList = vw_komsel.OrderBy(o => o.Komsel).ToList();
+                viewModel.DdlArea = GeneralHelper.addDdl(ddl_area);
+                viewModel.DdlJemaat = GeneralHelper.addDdl(ddl_jemaat);
                 viewModel.DataCount = viewModel.List.Count;
 
                 var cacheValue = JsonSerializer.Serialize(viewModel);
-                _cache.SetCache("MasterData_Area", cacheValue);
+                _cache.SetCache("MasterData_Komsel", cacheValue);
             }
             catch (Exception ex)
             {
@@ -287,6 +294,104 @@ namespace SistemPendataanJemaat.Controllers
             }
 
             return View(viewModel);
+        }
+
+        public IActionResult KomselAddEdit(string id)
+        {
+            bool haveId = !string.IsNullOrEmpty(id);
+            ViewBag.PageName = haveId ? "Edit Komsel" : "Create Komsel";
+            ViewBag.IsEdit = haveId ? true : false;
+            KomselViewModel viewModel = new KomselViewModel();
+
+            try
+            {
+                var cacheValue = _cache.GetCache("MasterData_Komsel");
+                viewModel = JsonSerializer.Deserialize<KomselViewModel>(cacheValue);
+
+                if (haveId)
+                {
+                    viewModel.Single = viewModel.List.Where(p => p.Komsel_ID == id).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> KomselAddEdit(KomselViewModel req)
+        {
+            KomselViewModel viewModel = new KomselViewModel();
+            var komsel = req.Single;
+
+            try
+            {
+                if (string.IsNullOrEmpty(komsel.Komsel_ID))
+                {
+                    var cacheValue = _cache.GetCache("MasterData_Komsel");
+                    viewModel = JsonSerializer.Deserialize<KomselViewModel>(cacheValue);
+                    var lastID = viewModel.List.OrderBy(o => o.Komsel_ID).LastOrDefault().Komsel_ID;
+                    var lastRow = int.Parse(lastID.Replace("KOMS", string.Empty));
+
+                    komsel.Komsel_ID = GeneralHelper.GenerateId("KOMS", lastRow);
+                    await _repository.Komsel.Create(komsel);
+                }
+                else
+                {
+                    await _repository.Komsel.Update(komsel);
+                }
+
+                _repository.Save();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return RedirectToAction("KomselIndex");
+        }
+
+        public IActionResult KomselDetail(string id)
+        {
+            KomselViewModel viewModel = new KomselViewModel();
+
+            try
+            {
+                var cacheValue = _cache.GetCache("MasterData_Komsel");
+                viewModel = JsonSerializer.Deserialize<KomselViewModel>(cacheValue);
+                viewModel.VwSingle = viewModel.VwList.Where(p => p.Komsel_ID == id).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> KomselDelete(string id)
+        {
+            KomselViewModel viewModel = new KomselViewModel();
+
+            try
+            {
+                var cacheValue = _cache.GetCache("MasterData_Komsel");
+                viewModel = JsonSerializer.Deserialize<KomselViewModel>(cacheValue);
+                var komsel = viewModel.List.Where(p => p.Komsel_ID == id).FirstOrDefault();
+                await _repository.Komsel.Delete(komsel);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return RedirectToAction("KomselIndex");
         }
         #endregion
 

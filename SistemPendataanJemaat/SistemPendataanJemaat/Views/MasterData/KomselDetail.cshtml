@@ -1,0 +1,37 @@
+﻿@model KomselViewModel
+@{
+    ViewData["Title"] = "Detail Komsel";
+}
+
+<div class="container-fluid">
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Komsel)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Komsel)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Area)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Area)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Nama_Lengkap_PIC)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Nama_Lengkap_PIC)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Keterangan)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Keterangan)
+        </dd>
+    </dl>
+    <div>
+        <a class="btn btn-primary" asp-action="KomselAddEdit" asp-route-id="@Model.VwSingle.Komsel_ID">Edit</a>
+        <a class="btn btn-neutral" asp-action="KomselIndex">Back</a>
+    </div>
+</div>

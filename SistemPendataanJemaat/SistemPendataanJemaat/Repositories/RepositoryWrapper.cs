@@ -22,6 +22,7 @@ namespace SistemPendataanJemaat.Repositories
         private IDdlStatusPernikahanRepository _ddlStatusPernikahan;
         private IVwAreaRepository _vwArea;
         private IVwJemaatRepository _vwJemaat;
+        private IVwKomselRepository _vwKomsel;
         private IStatusAnggotaRepository _statusAnggota;
         private IStatusKeaktifanRepository _statusKeaktifan;
 
@@ -191,6 +192,17 @@ namespace SistemPendataanJemaat.Repositories
                     _vwJemaat = new VwJemaatRepository(_repoContext);
 
                 return _vwJemaat;
+            }
+        }
+
+        public IVwKomselRepository VwKomsel
+        {
+            get
+            {
+                if (_vwKomsel == null)
+                    _vwKomsel = new VwKomselRepository(_repoContext);
+
+                return _vwKomsel;
             }
         }
 

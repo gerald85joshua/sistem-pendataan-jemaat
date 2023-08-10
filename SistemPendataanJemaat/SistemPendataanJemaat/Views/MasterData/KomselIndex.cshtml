@@ -20,13 +20,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.List)
+                    @foreach (var item in Model.VwList)
                     {
                         num++;
                         <tr>
                             <td> @num. </td>
                             <td> @item.Komsel </td>
-                            <td> @item.PIC_ID </td>
+                            <td> @item.Area </td>
+                            <td> @item.Nama_Panggilan_PIC </td>
                             <td> @item.Keterangan </td>
                             <td>
                                 <form asp-action="KomselDelete">

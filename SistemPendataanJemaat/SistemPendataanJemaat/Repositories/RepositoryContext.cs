@@ -39,6 +39,7 @@ namespace SistemPendataanJemaat.Repositories
             {
                 u.HasKey(e => e.Komsel_ID);
                 u.Property(e => e.Komsel);
+                u.Property(e => e.Area_ID);
                 u.Property(e => e.PIC_ID);
                 u.Property(e => e.Keterangan);
             });
@@ -162,6 +163,18 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Alamat_Email);
                 u.Property(e => e.Status_Pernikahan_ID);
                 u.Property(e => e.Status_Pernikahan);
+            });
+
+            modelBuilder.Entity<VwKomselEntityModel>(u =>
+            {
+                u.HasKey(e => e.Komsel_ID);
+                u.Property(e => e.Komsel);
+                u.Property(e => e.Area_ID);
+                u.Property(e => e.Area);
+                u.Property(e => e.PIC_ID);
+                u.Property(e => e.Nama_Panggilan_PIC);
+                u.Property(e => e.Nama_Lengkap_PIC);
+                u.Property(e => e.Keterangan);
             });
         }
     }

@@ -22,6 +22,7 @@ namespace SistemPendataanJemaat.Interfaces
         IDdlStatusPernikahanRepository DdlStatusPernikahan { get; }
         IVwAreaRepository VwArea { get; }
         IVwJemaatRepository VwJemaat { get; }
+        IVwKomselRepository VwKomsel { get; }
         void Save();
     }
 }
