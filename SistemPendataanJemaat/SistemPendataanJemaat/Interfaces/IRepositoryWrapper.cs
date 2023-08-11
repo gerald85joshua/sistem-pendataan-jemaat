@@ -7,22 +7,26 @@ namespace SistemPendataanJemaat.Interfaces
 {
     public interface IRepositoryWrapper
     {
-        IKelompokIbadahRepository KelompokIbadah { get; }
         IAreaRepository Area { get; }
-        IKomselRepository Komsel { get; }        
-	    IStatusAnggotaRepository StatusAnggota { get; }
-        IStatusKeaktifanRepository StatusKeaktifan { get; }
-        IJemaatRepository Jemaat { get; }
         IDdlAreaRepository DdlArea { get; }
         IDdlJemaatRepository DdlJemaat { get; }
-        IDdlKomselRepository DdlKomsel { get; }
         IDdlKelompokIbadahRepository DdlKelompokIbadah { get; }
+        IDdlKomselRepository DdlKomsel { get; }
         IDdlStatusAnggotaRepository DdlStatusAnggota { get; }
         IDdlStatusKeaktifanRepository DdlStatusKeaktifan { get; }
         IDdlStatusPernikahanRepository DdlStatusPernikahan { get; }
+        IJemaatRepository Jemaat { get; }
+        IKelompokIbadahRepository KelompokIbadah { get; }
+        IKomselRepository Komsel { get; }
+        IPernikahanRepository Pernikahan { get; }
+        IPernikahanDetailRepository PernikahanDetail { get; }
+        IStatusAnggotaRepository StatusAnggota { get; }
+        IStatusKeaktifanRepository StatusKeaktifan { get; }
         IVwAreaRepository VwArea { get; }
         IVwJemaatRepository VwJemaat { get; }
         IVwKomselRepository VwKomsel { get; }
+        IVwPernikahanRepository VwPernikahan { get; }
+        IVwPernikahanDetailRepository VwPernikahanDetail { get; }
         void Save();
     }
 }

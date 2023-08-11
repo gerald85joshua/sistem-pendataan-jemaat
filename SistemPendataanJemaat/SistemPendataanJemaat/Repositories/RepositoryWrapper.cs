@@ -12,6 +12,8 @@ namespace SistemPendataanJemaat.Repositories
         private IKelompokIbadahRepository _kelompokIbadah;
         private IAreaRepository _area;
         private IKomselRepository _komsel;
+        private IPernikahanRepository _pernikahan;
+        private IPernikahanDetailRepository _pernikahanDetail;
         private IJemaatRepository _jemaat;
         private IDdlAreaRepository _ddlArea;
         private IDdlJemaatRepository _ddlJemaat;
@@ -23,6 +25,8 @@ namespace SistemPendataanJemaat.Repositories
         private IVwAreaRepository _vwArea;
         private IVwJemaatRepository _vwJemaat;
         private IVwKomselRepository _vwKomsel;
+        private IVwPernikahanRepository _vwPernikahan;
+        private IVwPernikahanDetailRepository _vwPernikahanDetail;
         private IStatusAnggotaRepository _statusAnggota;
         private IStatusKeaktifanRepository _statusKeaktifan;
 
@@ -60,6 +64,31 @@ namespace SistemPendataanJemaat.Repositories
                 return _komsel;
             }
         }
+
+        public IPernikahanRepository Pernikahan
+        {
+            get
+            {
+                if (_pernikahan == null)
+                {
+                    _pernikahan = new PernikahanRepository(_repoContext);
+                }
+                return _pernikahan;
+            }
+        }
+
+        public IPernikahanDetailRepository PernikahanDetail
+        {
+            get
+            {
+                if (_pernikahanDetail == null)
+                {
+                    _pernikahanDetail = new PernikahanDetailRepository(_repoContext);
+                }
+                return _pernikahanDetail;
+            }
+        }
+
         public IStatusAnggotaRepository StatusAnggota
         {
             get
@@ -203,6 +232,30 @@ namespace SistemPendataanJemaat.Repositories
                     _vwKomsel = new VwKomselRepository(_repoContext);
 
                 return _vwKomsel;
+            }
+        }
+
+        public IVwPernikahanRepository VwPernikahan
+        {
+            get
+            {
+                if (_vwPernikahan == null)
+                {
+                    _vwPernikahan = new VwPernikahanRepository(_repoContext);
+                }
+                return _vwPernikahan;
+            }
+        }
+
+        public IVwPernikahanDetailRepository VwPernikahanDetail
+        {
+            get
+            {
+                if (_vwPernikahanDetail == null)
+                {
+                    _vwPernikahanDetail = new VwPernikahanDetailRepository(_repoContext);
+                }
+                return _vwPernikahanDetail;
             }
         }
 

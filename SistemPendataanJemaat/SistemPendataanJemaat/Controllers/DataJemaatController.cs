@@ -206,5 +206,35 @@ namespace SistemPendataanJemaat.Controllers
             return RedirectToAction("JemaatIndex");
         }
         #endregion
+
+        #region Pernikahan
+        public async Task<IActionResult> PernikahanIndex()
+        {
+            PernikahanViewModel viewModel = new PernikahanViewModel();
+
+            try
+            {
+                var pernikahan = await _repository.Pernikahan.FindAll();
+                var vw_pernikahan = await _repository.VwPernikahan.FindAll();
+                var jemaat = await _repository.Jemaat.FindByCondition(p => p.Status_Pernikahan_ID != "STPER00001"); // yg bukan sama dengan menikah
+                var id_jemaat = jemaat.Select(s => s.ID.ToString()).ToList();
+                var ddl_jemaat = await _repository.DdlJemaat.FindByCondition(p => id_jemaat.Contains(p.Value));
+
+                viewModel.List = pernikahan.ToList();
+                viewModel.VwList = vw_pernikahan.OrderBy(o => o.Pasangan).ToList();
+                viewModel.DdlJemaat = GeneralHelper.addDdl(ddl_jemaat);
+                viewModel.DataCount = viewModel.List.Count;
+
+                var cacheValue = JsonSerializer.Serialize(viewModel);
+                _cache.SetCache("MasterData_Pernikahan", cacheValue);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return View(viewModel);
+        }
+        #endregion
     }
 }

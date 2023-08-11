@@ -10,6 +10,8 @@ namespace SistemPendataanJemaat.Repositories
         public DbSet<JemaatEntityModel> Jemaat { get; set; }
         public DbSet<AreaEntityModel> Area { get; set; }
         public DbSet<KomselEntityModel> Komsel { get; set; }
+        public DbSet<PernikahanEntityModel> Pernikahan { get; set; }
+        public DbSet<PernikahanDetailEntityModel> PernikahanDetail { get; set; }
         public DbSet<StatusAnggotaEntityModel> StatusAnggota { get; set; }
         public DbSet<StatusKeaktifanEntityModel> StatusKeaktifan { get; set; }
 
@@ -43,7 +45,33 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.PIC_ID);
                 u.Property(e => e.Keterangan);
             });
-			
+
+            modelBuilder.Entity<PernikahanEntityModel>(u =>
+            {
+                u.HasKey(e => e.ID);
+                u.Property(e => e.Tanggal_Pernikahan);
+                u.Property(e => e.Gereja);
+                u.Property(e => e.Pendeta);
+                u.Property(e => e.Catatan_Sipil);
+                u.Property(e => e.No_Surat_Nikah);
+                u.Property(e => e.Created_By);
+                u.Property(e => e.Created_Date);
+                u.Property(e => e.Updated_By);
+                u.Property(e => e.Updated_Date);
+            });
+
+            modelBuilder.Entity<PernikahanDetailEntityModel>(u =>
+            {
+                u.HasKey(e => e.ID);
+                u.Property(e => e.ID_Pernikahan);
+                u.Property(e => e.ID_Jemaat);
+                u.Property(e => e.Anggota_Gereja);
+                u.Property(e => e.Created_By);
+                u.Property(e => e.Created_Date);
+                u.Property(e => e.Updated_By);
+                u.Property(e => e.Updated_Date);
+            });
+
             modelBuilder.Entity<StatusAnggotaEntityModel>(u =>
             {
                 u.HasKey(e => e.Status_Anggota_ID);
@@ -175,6 +203,29 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Nama_Panggilan_PIC);
                 u.Property(e => e.Nama_Lengkap_PIC);
                 u.Property(e => e.Keterangan);
+            });
+
+            modelBuilder.Entity<VwPernikahanEntityModel>(u =>
+            {
+                u.HasKey(e => e.ID);
+                u.Property(e => e.Pasangan);
+                u.Property(e => e.Tanggal_Pernikahan);
+                u.Property(e => e.Gereja);
+                u.Property(e => e.Pendeta);
+                u.Property(e => e.Catatan_Sipil);
+                u.Property(e => e.No_Surat_Nikah);
+            });
+
+            modelBuilder.Entity<VwPernikahanDetailEntityModel>(u =>
+            {
+                u.HasKey(e => e.ID);
+                u.Property(e => e.ID_Pernikahan);
+                u.Property(e => e.ID_Jemaat);
+                u.Property(e => e.Nama_Lengkap);
+                u.Property(e => e.Jenis_Kelamin);
+                u.Property(e => e.Status_Keaktifan_ID);
+                u.Property(e => e.Status_Keaktifan);
+                u.Property(e => e.Anggota_Gereja);
             });
         }
     }

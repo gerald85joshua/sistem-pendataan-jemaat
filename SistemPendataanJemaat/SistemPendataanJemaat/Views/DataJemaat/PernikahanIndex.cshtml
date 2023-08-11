@@ -1,0 +1,48 @@
+﻿@model PernikahanViewModel
+@{
+    ViewData["Title"] = "Pernikahan";
+    var num = 0;
+}
+
+<div class="container-fluid">
+    <a asp-action="PernikahanAddEdit" class="btn btn-neutral">+ Add</a>
+    <br/><br />
+    <div class="card shadow border-0 mb-7">
+        <div class="table-responsive">
+            <table class="table table-hover table-nowrap">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Pasangan</th>
+                        <th scope="col">Tanggal Pernikahan</th>
+                        <th scope="col">Menikah di</th>
+                        <th scope="col">Diberkati oleh</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.VwList)
+                    {
+                        var pasangan = item.Pasangan.Replace(",", " & ");
+                        num++;
+                        <tr>
+                            <td> @num. </td>
+                            <td> @pasangan </td>
+                            <td> @item.Tanggal_Pernikahan.ToString("dd/MM/yyyy") </td>
+                            <td> @item.Gereja </td>
+                            <td> @item.Pendeta </td>
+                            <td>
+                                <form asp-action="PernikahanDelete">
+                                    <a asp-action="PernikahanDetail" asp-route-id="@item.ID" class="btn btn-sm btn-neutral">View</a>
+                                    <a asp-action="PernikahanAddEdit" asp-route-id="@item.ID" class="btn btn-sm btn-square btn-neutral text-danger-hover"> <i class="bi bi-pencil"></i> </a>
+                                    <input name="id" type="hidden" value="@item.ID" />
+                                    <button class="btn btn-sm btn-square btn-neutral text-danger-hover" type="submit" data-confirm="Apa Anda yakin ingin menghapus data data pernikahan ini?"> <i class="bi bi-trash"></i> </button>
+                                </form>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer border-0 py-5"> <span class="text-muted text-sm">Showing @Model.DataCount records found</span> </div>
+    </div>
+</div>
