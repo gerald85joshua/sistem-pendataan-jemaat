@@ -1,0 +1,191 @@
+﻿@model PernikahanViewModel
+@{
+    ViewData["Title"] = ViewBag.PageName;
+}
+
+<div class="container-fluid">
+    @if (ViewBag.ValidationMessage != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+              alert("@ViewBag.ValidationMessage");
+            };
+        </script>
+    }
+    <form asp-action="PernikahanAddEdit">
+        @if (@ViewBag.IsEdit)
+        {
+            <input type="hidden" asp-for="Single.ID" />
+        }
+        <div class="form-group">
+            <label asp-for="Single.Tanggal_Pernikahan" class="control-label"></label>
+            <input asp-for="Single.Tanggal_Pernikahan" class="form-control" type="date" />
+            <span asp-validation-for="Single.Tanggal_Pernikahan" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Gereja" class="control-label"></label>
+            <input asp-for="Single.Gereja" class="form-control" />
+            <span asp-validation-for="Single.Gereja" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Single.Pendeta" class="control-label"></label>
+            <input asp-for="Single.Pendeta" class="form-control" />
+            <span asp-validation-for="Single.Pendeta" class="text-danger"></span>
+        </div>
+        <br /><hr /><br />
+        <div class="row">
+            <h3>Jemaat</h3>
+        </div>
+
+        @if (@ViewBag.IsEdit)
+        {
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwJemaatDetail.Nama_Lengkap)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwJemaatDetail.Nama_Lengkap)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwJemaatDetail.Jenis_Kelamin)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwJemaatDetail.Jenis_Kelamin)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwJemaatDetail.Status_Keaktifan)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwJemaatDetail.Status_Keaktifan)
+                </dd>
+            </dl>
+            <div class="row">
+                <h3>Pasangan</h3>
+            </div>
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwPasanganDetail.Nama_Lengkap)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwPasanganDetail.Nama_Lengkap)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwPasanganDetail.Jenis_Kelamin)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwPasanganDetail.Jenis_Kelamin)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwPasanganDetail.Status_Keaktifan)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwPasanganDetail.Status_Keaktifan)
+                </dd>
+                @if (Model.VwPasanganDetail.Status_Keaktifan_ID != "JA")
+                {
+                    <dt class="col-sm-3">
+                        @Html.DisplayNameFor(model => model.VwPasanganDetail.Anggota_Gereja)
+                    </dt>
+                    <dd class="col-sm-9">
+                        @Html.DisplayFor(model => model.VwPasanganDetail.Anggota_Gereja)
+                    </dd>
+                }
+            </dl>
+        }
+        else
+        {
+            <div class="form-group">
+                <label asp-for="JemaatDetail.ID_Jemaat" class="control-label"></label>
+                @Html.DropDownListFor(m => m.JemaatDetail.ID_Jemaat, Model.DdlJemaat, "Pilih Jemaat..", new { @id = "ddlJemaat", @class = "form-control select2" })
+                <label style="font-size: small">*Menampilkan jemaat yg belum menikah dan yg bukan jemaat meninggal</label>
+            </div>
+            <div id="dataJemaat">
+                @Html.Partial("_PernikahanDataJemaat", new ViewDataDictionary(ViewData) { { "dataSource", "jemaat" } })
+            </div>
+            <div class="row">
+                <h3>Pasangan</h3>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Apakah pasangan merupakan jemaat GPI Petra?</label><br />
+                @Html.CheckBoxFor(m => m.IsPasanganJemaat, new { @id = "checkPasanganJemaat" })
+            </div>
+            <div id="pasanganJemaat" hidden="!@Model.IsPasanganJemaat">
+                <div class="form-group">
+                    <label asp-for="PasanganDetail.ID_Jemaat" class="control-label"></label><br />
+                    @Html.DropDownListFor(m => m.PasanganDetail.ID_Jemaat, Model.DdlJemaat, "Pilih Pasangan..", new { @id = "ddlPasangan", @class = "form-control select2", @style = "width: 100%" })<br />
+                </div>
+                <div id="dataPasangan">
+                    @Html.Partial("_PernikahanDataJemaat", new ViewDataDictionary(ViewData) { { "dataSource", "pasangan" } })
+                </div>
+            </div>
+            <div id="pasanganNonJemaat" hidden="@Model.IsPasanganJemaat">
+                <div class="form-group">
+                    <label asp-for="DataPasanganDetail.Nama_Lengkap" class="control-label"></label>
+                    <input asp-for="DataPasanganDetail.Nama_Lengkap" class="form-control" />
+                    <span asp-validation-for="DataPasanganDetail.Nama_Lengkap" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataPasanganDetail.Tempat_Lahir" class="control-label"></label>
+                    <input asp-for="DataPasanganDetail.Tempat_Lahir" class="form-control" />
+                    <span asp-validation-for="DataPasanganDetail.Tempat_Lahir" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DataPasanganDetail.Tanggal_Lahir" class="control-label"></label>
+                    <input asp-for="DataPasanganDetail.Tanggal_Lahir" class="form-control" type="date" />
+                </div>
+            </div>
+        }
+        <br /><hr /><br />
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Save" data-confirm="Anda yakin ingin menyimnpan data Data Pernikahan ini?" />
+            <a class="btn btn-neutral" asp-action="PernikahanIndex">Back</a>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $(".select2").select2();
+    });
+
+    $("#ddlJemaat").change(function () {
+        var idJemaat = $(this).val();
+        if (idJemaat && idJemaat != '') {
+            $.ajax({
+                url: '@Url.Action("_PernikahanDataJemaat")',
+                type: 'GET',
+                cache: false,
+                data: { idJemaat: idJemaat, dataSource: "jemaat" }
+            }).done(function(result) {
+                $('#dataJemaat').html(result);
+            });
+        }
+    });
+
+    $("#ddlPasangan").change(function () {
+        var idPasangan = $(this).val();
+        if (idPasangan && idPasangan != '') {
+            $.ajax({
+                url: '@Url.Action("_PernikahanDataJemaat")',
+                type: 'GET',
+                cache: false,
+                data: { idJemaat: idPasangan, dataSource: "pasangan" }
+            }).done(function(result) {
+                $('#dataPasangan').html(result);
+            });
+        }
+    });
+
+    $("#checkPasanganJemaat").change(function () {
+        console.log("Masuk coeg, value:");
+        var isPasanganJemaat = $(this).is(':checked');
+        console.log(isPasanganJemaat);
+        if (isPasanganJemaat) {
+            $("#pasanganJemaat").removeAttr("hidden");
+            $("#pasanganNonJemaat").attr("hidden", "true");
+        } else {
+            $("#pasanganNonJemaat").removeAttr("hidden");
+            $("#pasanganJemaat").attr("hidden", "true");
+        }
+    });
+</script>

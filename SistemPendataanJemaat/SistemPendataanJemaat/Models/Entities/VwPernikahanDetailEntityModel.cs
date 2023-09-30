@@ -8,12 +8,12 @@ namespace SistemPendataanJemaat.Models.Entities
     [Table("vw_pernikahan_detail")]
     public class VwPernikahanDetailEntityModel
     {
-        public string ID { get; set; }
+        public Guid? ID { get; set; }
 
-        public string ID_Pernikahan { get; set; }
+        public Guid? ID_Pernikahan { get; set; }
 
         [Display(Name = "ID Jemaat")]
-        public string ID_Jemaat { get; set; }
+        public Guid? ID_Jemaat { get; set; }
 
         [Display(Name = "Nama Jemaat")]
         public string Nama_Lengkap { get; set; }

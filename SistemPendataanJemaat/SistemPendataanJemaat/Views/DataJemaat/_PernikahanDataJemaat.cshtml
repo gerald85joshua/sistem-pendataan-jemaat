@@ -1,0 +1,24 @@
+﻿@using SistemPendataanJemaat.Models.Entities
+@model PernikahanViewModel
+@{
+    JemaatEntityModel dataJemaat = ViewBag.DataSource == "jemaat" ? Model.DataJemaatDetail : Model.DataPasanganDetail;
+}
+
+@if (dataJemaat.ID != null)
+{
+    string statusKeaktifan = Model.DdlStatusKeaktifan.Where(p => p.Value == dataJemaat.Status_Keaktifan_ID).FirstOrDefault().Text;
+    <div class="row">
+        <div class="col-sm-3">
+            @Html.DisplayNameFor(model => dataJemaat.Jenis_Kelamin)
+        </div>
+        <div class="col-sm-9">
+            @Html.DisplayFor(model => dataJemaat.Jenis_Kelamin)
+        </div>
+        <div class="col-sm-3">
+            @Html.DisplayNameFor(model => dataJemaat.Status_Keaktifan_ID)
+        </div>
+        <div class="col-sm-9">
+            @Html.DisplayFor(model => statusKeaktifan)
+        </div>
+    </div>
+}

@@ -191,6 +191,8 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Alamat_Email);
                 u.Property(e => e.Status_Pernikahan_ID);
                 u.Property(e => e.Status_Pernikahan);
+                u.Property(e => e.ID_Pernikahan);
+                u.Property(e => e.ID_Keluarga);
             });
 
             modelBuilder.Entity<VwKomselEntityModel>(u =>

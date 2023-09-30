@@ -8,12 +8,12 @@ namespace SistemPendataanJemaat.Models.Entities
     [Table("tbl_pernikahan_detail")]
     public class PernikahanDetailEntityModel
     {
-        public string ID { get; set; }
+        public Guid? ID { get; set; }
 
-        public string ID_Pernikahan { get; set; }
+        public Guid? ID_Pernikahan { get; set; }
 
         [Display(Name = "Nama Jemaat")]
-        public string ID_Jemaat { get; set; }
+        public Guid? ID_Jemaat { get; set; }
 
         [Display(Name = "Anggota Gereja")]
         [StringLength(100, ErrorMessage = "Anggota Gereja can't be longer than 100 characters")]

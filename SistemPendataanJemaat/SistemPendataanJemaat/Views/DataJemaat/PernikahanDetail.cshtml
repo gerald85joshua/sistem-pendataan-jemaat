@@ -1,0 +1,87 @@
+﻿@model PernikahanViewModel
+@{
+    ViewData["Title"] = "Detail Pernikahan";
+    var tanggal_pernikahan = Model.VwSingle.Tanggal_Pernikahan.ToString("dd/MM/yyyy");
+}
+
+<div class="container-fluid">
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Tanggal_Pernikahan)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => tanggal_pernikahan)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Gereja)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Gereja)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwSingle.Pendeta)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwSingle.Pendeta)
+        </dd>
+    </dl>
+    <div class="row">
+        <h3>Jemaat</h3>
+    </div>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwJemaatDetail.Nama_Lengkap)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwJemaatDetail.Nama_Lengkap)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwJemaatDetail.Jenis_Kelamin)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwJemaatDetail.Jenis_Kelamin)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwJemaatDetail.Status_Keaktifan)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwJemaatDetail.Status_Keaktifan)
+        </dd>
+    </dl>
+    <div class="row">
+        <h3>Pasangan</h3>
+    </div>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwPasanganDetail.Nama_Lengkap)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwPasanganDetail.Nama_Lengkap)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwPasanganDetail.Jenis_Kelamin)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwPasanganDetail.Jenis_Kelamin)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.VwPasanganDetail.Status_Keaktifan)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.VwPasanganDetail.Status_Keaktifan)
+        </dd>
+        @if (Model.VwPasanganDetail.Status_Keaktifan_ID != "JA")
+        {
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(model => model.VwPasanganDetail.Anggota_Gereja)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.VwPasanganDetail.Anggota_Gereja)
+            </dd>
+        }
+    </dl>
+    <div>
+        <a class="btn btn-primary" asp-action="PernikahanAddEdit" asp-route-id="@Model.VwSingle.ID">Edit</a>
+        <a class="btn btn-neutral" asp-action="PernikahanIndex">Back</a>
+    </div>
+</div>

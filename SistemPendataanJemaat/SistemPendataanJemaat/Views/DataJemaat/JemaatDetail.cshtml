@@ -1,6 +1,6 @@
 ﻿@model JemaatViewModel
 @{
-    ViewData["Title"] = "View Jemaat";
+    ViewData["Title"] = "Detail Jemaat";
 }
 
 <div class="container-fluid">
@@ -93,9 +93,11 @@
             @Html.DisplayNameFor(model => model.VwSingle.Bersedia_Donor_Darah)
         </dt>
         <dd class="col-sm-9">
-            @if (Model.VwSingle.Bersedia_Donor_Darah) {
+            @if (Model.VwSingle.Bersedia_Donor_Darah)
+            {
                 <label>Ya</label>
-            } else
+            }
+            else
             {
                 <label>Tidak</label>
             }
@@ -118,6 +120,12 @@
         <dd class="col-sm-9">
             @Html.DisplayFor(model => model.VwSingle.Status_Pernikahan)
         </dd>
+        @if (Model.VwSingle.ID_Pernikahan != null)
+        {
+            <dd class="col-sm-3">
+                <a asp-action="PernikahanDetail" asp-route-id="@Model.VwSingle.ID_Pernikahan">Lihat Pasangan</a>
+            </dd>
+        }
     </dl>
     <div>
         <a class="btn btn-primary" asp-action="JemaatAddEdit" asp-route-id="@Model.VwSingle.ID">Edit</a>

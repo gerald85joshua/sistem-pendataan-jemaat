@@ -8,7 +8,7 @@ namespace SistemPendataanJemaat.Models.Entities
     [Table("vw_pernikahan")]
     public class VwPernikahanEntityModel
     {
-        public string ID { get; set; }
+        public Guid? ID { get; set; }
 
         [Display(Name = "Pasangan")]
         public string Pasangan { get; set; }

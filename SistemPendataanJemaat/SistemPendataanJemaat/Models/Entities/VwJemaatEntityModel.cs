@@ -78,5 +78,9 @@ namespace SistemPendataanJemaat.Models.Entities
 
         [Display(Name = "Status Pernikahan")]
         public string Status_Pernikahan { get; set; }
+
+        public Guid? ID_Pernikahan { get; set; }
+
+        public Guid? ID_Keluarga { get; set; }
     }
 }
