@@ -22,6 +22,7 @@ namespace SistemPendataanJemaat.Interfaces
         IPernikahanDetailRepository PernikahanDetail { get; }
         IStatusAnggotaRepository StatusAnggota { get; }
         IStatusKeaktifanRepository StatusKeaktifan { get; }
+        IUserRepository User { get; }
         IVwAreaRepository VwArea { get; }
         IVwJemaatRepository VwJemaat { get; }
         IVwKomselRepository VwKomsel { get; }

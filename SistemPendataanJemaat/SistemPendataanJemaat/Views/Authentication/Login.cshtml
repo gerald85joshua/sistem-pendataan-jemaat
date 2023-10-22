@@ -1,0 +1,32 @@
+﻿@model AuthenticationViewModel
+
+<div style="padding: 20px; z-index: 10; position: relative;">
+    <div class="row">
+        <center>
+            <h1 class="text-login">Sistem Data Jemaat</h1><br />
+            <h1 class="text-login">GPI Petra</h1>
+        </center>
+    </div>
+    <div class="col-md-6">
+        <div class="row pd-top-long">
+            <div class="form-group">
+                <input asp-for="User.User_Name" class="form-control" placeholder="@Html.DisplayNameFor(m => m.User.User_Name)" />
+                <span asp-validation-for="User.User_Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row pd-top">
+            <div class="form-group">
+                <input asp-for="User.User_Password" class="form-control" type="password" placeholder="@Html.DisplayNameFor(m => m.User.User_Password)" />
+                <span asp-validation-for="User.User_Password" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="row pd-top">
+            <div class="form-group">
+                <input class="btn btn-login" style="width: 100%" type="submit" value="LOGIN" />
+            </div>
+        </div>
+        <div class="row pd-top">
+            <a class="link-login" asp-action="Register">Belum punya akun? Klik disini untuk SIGN UP</a>
+        </div>
+    </div>
+</div>

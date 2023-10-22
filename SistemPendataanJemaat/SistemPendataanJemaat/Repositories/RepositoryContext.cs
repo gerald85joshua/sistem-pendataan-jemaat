@@ -14,6 +14,7 @@ namespace SistemPendataanJemaat.Repositories
         public DbSet<PernikahanDetailEntityModel> PernikahanDetail { get; set; }
         public DbSet<StatusAnggotaEntityModel> StatusAnggota { get; set; }
         public DbSet<StatusKeaktifanEntityModel> StatusKeaktifan { get; set; }
+        public DbSet<UserEntityModel> User { get; set; }
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)
@@ -153,6 +154,16 @@ namespace SistemPendataanJemaat.Repositories
             {
                 u.HasKey(e => e.Value);
                 u.Property(e => e.Text);
+            });
+
+            modelBuilder.Entity<UserEntityModel>(u =>
+            {
+                u.HasKey(e => e.User_ID);
+                u.Property(e => e.User_Name);
+                u.Property(e => e.User_Email);
+                u.Property(e => e.User_Password);
+                u.Property(e => e.Is_Login);
+                u.Property(e => e.Last_Login);
             });
 
             modelBuilder.Entity<VwAreaEntityModel>(u =>

@@ -29,6 +29,7 @@ namespace SistemPendataanJemaat.Repositories
         private IVwPernikahanDetailRepository _vwPernikahanDetail;
         private IStatusAnggotaRepository _statusAnggota;
         private IStatusKeaktifanRepository _statusKeaktifan;
+        private IUserRepository _user;
 
         public IKelompokIbadahRepository KelompokIbadah
         {
@@ -198,6 +199,17 @@ namespace SistemPendataanJemaat.Repositories
                     _ddlStatusPernikahan = new DdlStatusPernikahanRepository(_repoContext);
 
                 return _ddlStatusPernikahan;
+            }
+        }
+
+        public IUserRepository User
+        {
+            get
+            {
+                if (_user == null)
+                    _user = new UserRepository(_repoContext);
+
+                return _user;
             }
         }
 
