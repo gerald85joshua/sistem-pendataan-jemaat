@@ -34,7 +34,7 @@ namespace SistemPendataanJemaat.Models.Entities
         [Display(Name = "Role")]
         public string User_Role { get; set; }
 
-        public string Is_Login { get; set; }
+        public bool Is_Login { get; set; }
 
         public DateTime Last_Login { get; set; }
 

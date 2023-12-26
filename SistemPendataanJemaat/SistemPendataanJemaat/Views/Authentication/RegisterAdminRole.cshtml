@@ -7,38 +7,44 @@
             <h2 class="text-login">Admin Role</h2><br />
         </center>
     </div>
-    <div class="col-md-6">
-        <div class="row pd-top-long">
-            <div class="form-group">
-                <input asp-for="User.User_Email" class="form-control" type="email" placeholder="@Html.DisplayNameFor(m => m.User.User_Email)" />
-                <span asp-validation-for="User.User_Email" class="text-danger"></span>
+    <form asp-action="RegisterAdminRole">
+        <div class="col-md-6">
+            <div class="row pd-top-long">
+                <div class="form-group">
+                    <input asp-for="User.User_Email" class="form-control" type="email" placeholder="@Html.DisplayNameFor(m => m.User.User_Email)" />
+                    <span asp-validation-for="User.User_Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row pd-top">
+                <div class="form-group">
+                    <input asp-for="User.User_Name" class="form-control" placeholder="@Html.DisplayNameFor(m => m.User.User_Name)" />
+                    <span asp-validation-for="User.User_Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row pd-top">
+                <div class="form-group">
+                    <input asp-for="User.User_Password" class="form-control" type="password" placeholder="@Html.DisplayNameFor(m => m.User.User_Password)" />
+                    <span asp-validation-for="User.User_Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row pd-top">
+                <div class="form-group">
+                    <input asp-for="User.Confirm_Password" class="form-control" type="password" placeholder="@Html.DisplayNameFor(m => m.User.Confirm_Password)" />
+                    <span asp-validation-for="User.Confirm_Password" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row pd-top">
+                <div class="form-group">
+                    <input class="btn btn-login" style="width: 100%" type="submit" value="SIGN UP" />
+                    @if (Model.ErrorMessage != null)
+                    {
+                        <span class="text-danger">@Model.ErrorMessage</span>
+                    }
+                </div>
+            </div>
+            <div class="row pd-top">
+                <a class="link-login" asp-action="Login">Sudah punya akun? Klik disini untuk LOGIN</a>
             </div>
         </div>
-        <div class="row pd-top">
-            <div class="form-group">
-                <input asp-for="User.User_Name" class="form-control" placeholder="@Html.DisplayNameFor(m => m.User.User_Name)" />
-                <span asp-validation-for="User.User_Name" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row pd-top">
-            <div class="form-group">
-                <input asp-for="User.User_Password" class="form-control" type="password" placeholder="@Html.DisplayNameFor(m => m.User.User_Password)" />
-                <span asp-validation-for="User.User_Password" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row pd-top">
-            <div class="form-group">
-                <input asp-for="User.Confirm_Password" class="form-control" type="password" placeholder="@Html.DisplayNameFor(m => m.User.Confirm_Password)" />
-                <span asp-validation-for="User.Confirm_Password" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="row pd-top">
-            <div class="form-group">
-                <input class="btn btn-login" style="width: 100%" type="submit" value="SIGN UP" />
-            </div>
-        </div>
-        <div class="row pd-top">
-            <a class="link-login" asp-action="Login">Sudah punya akun? Klik disini untuk LOGIN</a>
-        </div>
-    </div>
+    </form>
 </div>

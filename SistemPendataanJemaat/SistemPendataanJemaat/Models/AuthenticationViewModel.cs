@@ -10,5 +10,9 @@ namespace SistemPendataanJemaat.Models
     public class AuthenticationViewModel
     {
         public UserEntityModel User { get; set; }
+        
+        public string Token { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }
