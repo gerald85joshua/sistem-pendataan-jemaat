@@ -14,12 +14,12 @@ namespace SistemPendataanJemaat.Models.Entities
 
         [Display(Name = "Username")]
         [Required(ErrorMessage = "Username is required")]
-        [StringLength(100, ErrorMessage = "Username can't be longer than 50 characters")]
+        [StringLength(100, ErrorMessage = "Username can't be longer than 100 characters")]
         public string User_Name { get; set; }
 
         [Display(Name = "Email")]
         [Required(ErrorMessage = "Email is required")]
-        [StringLength(100, ErrorMessage = "Email can't be longer than 50 characters")]
+        [StringLength(100, ErrorMessage = "Email can't be longer than 100 characters")]
         public string User_Email { get; set; }
 
         [Display(Name = "Password")]
