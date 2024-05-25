@@ -9,12 +9,12 @@ using SistemPendataanJemaat.Helper;
 
 namespace SistemPendataanJemaat.Controllers
 {
-    public class MasterDataController : Controller
+    public class MasterDataController : BaseController
     {
         private readonly IRepositoryWrapper _repository;
         private readonly ICacheHelper _cache;
 
-        public MasterDataController(IRepositoryWrapper repository, ICacheHelper cache)
+        public MasterDataController(IRepositoryWrapper repository, ICacheHelper cache) : base(cache)
         {
             _repository = repository;
             _cache = cache;

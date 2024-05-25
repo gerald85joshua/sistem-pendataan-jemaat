@@ -13,15 +13,13 @@ using System.Collections.Generic;
 
 namespace SistemPendataanJemaat.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IRepositoryWrapper _repository;
         private readonly ICacheHelper _cache;
 
-        public HomeController(ILogger<HomeController> logger, IRepositoryWrapper repository, ICacheHelper cache)
+        public HomeController(ILogger<HomeController> logger, IRepositoryWrapper repository, ICacheHelper cache) : base(cache)
         {
-            _logger = logger;
             _repository = repository;
             _cache = cache;
         }

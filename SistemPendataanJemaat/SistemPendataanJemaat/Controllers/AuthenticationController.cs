@@ -3,23 +3,19 @@ using SistemPendataanJemaat.Interfaces;
 using SistemPendataanJemaat.Models;
 using SistemPendataanJemaat.Models.Entities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 using bc = BCrypt.Net.BCrypt;
 
 namespace SistemPendataanJemaat.Controllers
 {
-    public class AuthenticationController : Controller
+    public class AuthenticationController : BaseController
     {
         private readonly IRepositoryWrapper _repository;
-        private readonly ICacheHelper _cache;
 
-        public AuthenticationController(IRepositoryWrapper repository, ICacheHelper cache)
+        public AuthenticationController(IRepositoryWrapper repository, ICacheHelper cache) : base(cache)
         {
             _repository = repository;
-            _cache = cache;
         }
 
         public IActionResult Login()
@@ -51,10 +47,7 @@ namespace SistemPendataanJemaat.Controllers
 
                 user.Is_Login = true;
                 await _repository.User.Update(user);
-
-                var token = generateToken();
-                _cache.SetCache("User_Token", token);
-                _cache.SetCache(token, JsonSerializer.Serialize(user));
+                OnLogin(user);
 
                 return RedirectToAction("Index", "Home");
             } catch (Exception ex)
@@ -63,50 +56,25 @@ namespace SistemPendataanJemaat.Controllers
             }
         }
 
-        private string generateToken()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
         {
-            string result = string.Empty;
-            const string AllowedChars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#@$^*()";
-            Random rng = new Random();
-
-            foreach (string randomString in nextStrings(rng, AllowedChars, (15, 64), 25))
+            try
             {
-                result += randomString;
+                var userLogin = UserLogin();
+                var repoUser = await _repository.User.FindByCondition(p => p.User_Name == userLogin.User_Name);
+                var user = repoUser.FirstOrDefault();
+                user.Is_Login = false;
+                await _repository.User.Update(user);
+
+                OnLogout();
+
+                return RedirectToAction("Login");
             }
-
-            return result;
-        }
-
-        private static IEnumerable<string> nextStrings(
-            Random rnd,
-            string allowedChars,
-            (int Min, int Max) length,
-            int count)
-        {
-            ISet<string> usedRandomStrings = new HashSet<string>();
-            (int min, int max) = length;
-            char[] chars = new char[max];
-            int setLength = allowedChars.Length;
-
-            while (count-- > 0)
+            catch (Exception ex)
             {
-                int stringLength = rnd.Next(min, max + 1);
-
-                for (int i = 0; i < stringLength; ++i)
-                {
-                    chars[i] = allowedChars[rnd.Next(setLength)];
-                }
-
-                string randomString = new string(chars, 0, stringLength);
-
-                if (usedRandomStrings.Add(randomString))
-                {
-                    yield return randomString;
-                }
-                else
-                {
-                    count++;
-                }
+                throw new Exception(ex.Message);
             }
         }
 

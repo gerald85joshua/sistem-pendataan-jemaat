@@ -12,12 +12,12 @@ using SistemPendataanJemaat.Helper;
 
 namespace SistemPendataanJemaat.Controllers
 {
-    public class DataJemaatController : Controller
+    public class DataJemaatController : BaseController
     {
         private readonly IRepositoryWrapper _repository;
         private readonly ICacheHelper _cache;
 
-        public DataJemaatController(IRepositoryWrapper repository, ICacheHelper cache)
+        public DataJemaatController(IRepositoryWrapper repository, ICacheHelper cache) : base(cache)
         {
             _repository = repository;
             _cache = cache;
