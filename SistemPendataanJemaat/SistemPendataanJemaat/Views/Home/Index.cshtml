@@ -200,6 +200,9 @@
         </div>
         <div class="row">
             <div class="col-3">
+                @Html.DropDownListFor(m => m.SelectedStatus, Model.DdlStatus, "Cari status jemaat: All", new { @id = "status", @class = "form-control" })
+            </div>
+            <div class="col-3">
                 <input type="hidden" asp-for="SearchTriggered" />
                 <input class="btn btn-neutral" type="submit" value="Cari" />
             </div>

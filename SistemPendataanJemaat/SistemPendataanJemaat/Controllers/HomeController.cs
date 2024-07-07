@@ -33,6 +33,7 @@ namespace SistemPendataanJemaat.Controllers
                 var ddl_komsel = await _repository.DdlKomsel.FindAll();
                 viewModel.SearchTriggered = true;
                 viewModel.DdlKomsel = GeneralHelper.addDdl(ddl_komsel);
+                viewModel.DdlStatus = GeneralHelper.addDdlStatusDashboard();
                 viewModel.VwList = new List<VwJemaatEntityModel>();
             } else
             {
@@ -52,6 +53,16 @@ namespace SistemPendataanJemaat.Controllers
                     viewModel.SelectedKomsel = req.SelectedKomsel;
                     vw_jemaat = vw_jemaat.Where(p => p.Komsel_ID == req.SelectedKomsel);
                     viewModel.DdlKomsel.ToList().Find(p => p.Value == req.SelectedKomsel).Selected = true;
+                }
+
+                if (!String.IsNullOrEmpty(req.SelectedStatus))
+                {
+                    viewModel.SelectedStatus = req.SelectedStatus;
+                    vw_jemaat = vw_jemaat.Where(p => p.Status_Keaktifan_ID == req.SelectedStatus);
+                    viewModel.DdlStatus.ToList().Find(p => p.Value == req.SelectedStatus).Selected = true;
+                } else
+                {
+                    vw_jemaat = vw_jemaat.Where(p => p.Status_Keaktifan_ID == "JA" || p.Status_Keaktifan_ID == "TA");
                 }
 
                 viewModel.VwList = vw_jemaat.OrderBy(o => o.Nama_Lengkap).ToList();

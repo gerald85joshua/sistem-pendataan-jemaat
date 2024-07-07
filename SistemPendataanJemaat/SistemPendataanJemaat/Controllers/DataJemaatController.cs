@@ -57,7 +57,7 @@ namespace SistemPendataanJemaat.Controllers
                 viewModel.DdlStatusAnggota = GeneralHelper.addDdl(ddl_status_anggota.ToList());
                 viewModel.DdlStatusKeaktifan = GeneralHelper.addDdl(ddl_status_keaktifan.ToList());
                 viewModel.DdlStatusPernikahan = GeneralHelper.addDdl(ddl_status_pernikahan.ToList());
-                viewModel.DdlGolonganDarah = addGolonganDarah();
+                viewModel.DdlGolonganDarah = GeneralHelper.addDdlGolonganDarah("Pilih golongan darah..");
                 viewModel.DataCount = viewModel.List.Count;
 
                 var cacheValue = JsonSerializer.Serialize(viewModel);
@@ -67,38 +67,6 @@ namespace SistemPendataanJemaat.Controllers
             {
                 throw new Exception(ex.Message);
             }
-        }
-
-        private List<SelectListItem> addGolonganDarah()
-        {
-            List<SelectListItem> result = new List<SelectListItem>();
-
-            result.Add(new SelectListItem
-            {
-                Text = "Pilih golongan darah..",
-                Value = null
-            });
-            result.Add(new SelectListItem{
-                Text = "AB",
-                Value = "AB"
-            });
-            result.Add(new SelectListItem
-            {
-                Text = "A",
-                Value = "A"
-            });
-            result.Add(new SelectListItem
-            {
-                Text = "B",
-                Value = "B"
-            });
-            result.Add(new SelectListItem
-            {
-                Text = "O",
-                Value = "O"
-            });
-
-            return result;
         }
 
         public IActionResult JemaatAddEdit(string id)

@@ -60,5 +60,59 @@ namespace SistemPendataanJemaat.Helper
 
             return result;
         }
+
+        public static List<SelectListItem> addDdlStatusDashboard()
+        {
+            var result = new List<SelectListItem>
+            {
+                new SelectListItem
+                {
+                    Text = "Aktif",
+                    Value = "JA"
+                },
+                new SelectListItem
+                {
+                    Text = "Non aktif",
+                    Value = "TA"
+                }
+            };
+
+            return result;
+        }
+
+        public static List<SelectListItem> addDdlGolonganDarah(string placeholder)
+        {
+            List<SelectListItem> result = new List<SelectListItem>
+            {
+                //new SelectListItem
+                //{
+                //    Text = "Pilih golongan darah..",
+                //    Value = null
+                //},
+                new SelectListItem
+                {
+                    Text = "AB",
+                    Value = "AB"
+                },
+                new SelectListItem
+                {
+                    Text = "A",
+                    Value = "A"
+                },
+                new SelectListItem
+                {
+                    Text = "B",
+                    Value = "B"
+                },
+                new SelectListItem
+                {
+                    Text = "O",
+                    Value = "O"
+                }
+            };
+
+            return result;
+        }
+
     }
 }
