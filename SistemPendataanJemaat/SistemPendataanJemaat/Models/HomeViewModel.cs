@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static SistemPendataanJemaat.Controllers.HomeController;
 
 namespace SistemPendataanJemaat.Models
 {
@@ -17,5 +18,7 @@ namespace SistemPendataanJemaat.Models
         public string SelectedKomsel { get; set; }
         public string SelectedStatus { get; set; }
         public bool SearchTriggered { get; set; }
+        public List<JemaatChartDataModel> JemaatChartDataModels { get; set; }
+        public int TotalJemaat { get; set; }
     }
 }

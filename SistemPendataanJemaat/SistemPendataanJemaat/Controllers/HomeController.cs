@@ -24,13 +24,42 @@ namespace SistemPendataanJemaat.Controllers
             _cache = cache;
         }
 
+        private List<JemaatChartDataModel> GenerateChart(IEnumerable<VwJemaatEntityModel> jemaat, List<StatusAnggotaEntityModel> statusAnggota)
+        {
+            var totalJemaat = jemaat.Count();
+            var result = new List<JemaatChartDataModel>
+            {
+                new JemaatChartDataModel
+                {
+                    DimensionOne = $"Total Jemaat: {totalJemaat}",
+                    Quantity = 0
+                }
+            };
+            foreach (var status in statusAnggota)
+            {
+                double total = jemaat.Where(p => p.Status_Anggota_ID == status.Status_Anggota_ID).Count();
+                double percentage = Math.Round(total / totalJemaat * 100, 2);
+                result.Add(new JemaatChartDataModel
+                {
+                    DimensionOne = $"{status.Status_Anggota} ({percentage}%)",
+                    Quantity = jemaat.Where(p => p.Status_Anggota_ID == status.Status_Anggota_ID).Count()
+                });
+            }
+
+            return result;
+        }
+
         public async Task<IActionResult> Index(HomeViewModel req)
         {
             var viewModel = new HomeViewModel();
+            var vw_jemaat = await _repository.VwJemaat.FindAll();
 
             if (!req.SearchTriggered)
             {
                 var ddl_komsel = await _repository.DdlKomsel.FindAll();
+                var status_anggota = await _repository.StatusAnggota.FindAll();
+                viewModel.JemaatChartDataModels = GenerateChart(vw_jemaat, status_anggota.ToList());
+                viewModel.TotalJemaat = vw_jemaat.Count();
                 viewModel.SearchTriggered = true;
                 viewModel.DdlKomsel = GeneralHelper.addDdl(ddl_komsel);
                 viewModel.DdlStatus = GeneralHelper.addDdlStatusDashboard();
@@ -39,7 +68,6 @@ namespace SistemPendataanJemaat.Controllers
             {
                 var cacheGet = _cache.GetCache("Home_Jemaat");
                 viewModel = JsonSerializer.Deserialize<HomeViewModel>(cacheGet);
-                var vw_jemaat = await _repository.VwJemaat.FindAll();
 
                 if (!String.IsNullOrEmpty(req.TypedKey))
                 {
