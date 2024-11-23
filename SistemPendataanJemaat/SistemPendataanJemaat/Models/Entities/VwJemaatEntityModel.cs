@@ -82,5 +82,7 @@ namespace SistemPendataanJemaat.Models.Entities
         public Guid? ID_Pernikahan { get; set; }
 
         public Guid? ID_Keluarga { get; set; }
+
+        public byte[] Photo {  get; set; }
     }
 }

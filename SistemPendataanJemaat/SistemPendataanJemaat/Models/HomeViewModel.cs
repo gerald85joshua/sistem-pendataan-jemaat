@@ -2,6 +2,7 @@
 using SistemPendataanJemaat.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using static SistemPendataanJemaat.Controllers.HomeController;
@@ -20,5 +21,7 @@ namespace SistemPendataanJemaat.Models
         public bool SearchTriggered { get; set; }
         public List<JemaatChartDataModel> JemaatChartDataModels { get; set; }
         public int TotalJemaat { get; set; }
+        public DateTime BirthdayStartDate { get; set; }
+        public DateTime BirthdayEndDate { get; set; }
     }
 }

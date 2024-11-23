@@ -1,132 +1,143 @@
 ﻿@model JemaatViewModel
 @{
     ViewData["Title"] = "Detail Jemaat";
+    var base64Photo = Convert.ToBase64String(Model.VwSingle.Photo);
+    var tst = "test";
 }
 
 <div class="container-fluid">
-    <dl class="row">
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.KTP)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.KTP)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Nama_Lengkap)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Nama_Lengkap)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Nama_Panggilan)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Nama_Panggilan)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Jenis_Kelamin)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Jenis_Kelamin)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Pendidikan_Terakhir)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Pendidikan_Terakhir)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Pekerjaan)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Pekerjaan)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Alamat)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Alamat)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Status_Anggota)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Status_Anggota)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Status_Keaktifan)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Status_Keaktifan)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Kelompok_Ibadah)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Kelompok_Ibadah)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Komsel)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Komsel)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Tempat_Lahir)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Tempat_Lahir)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Tanggal_Lahir)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Tanggal_Lahir)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Golongan_Darah)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Golongan_Darah)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Bersedia_Donor_Darah)
-        </dt>
-        <dd class="col-sm-9">
-            @if (Model.VwSingle.Bersedia_Donor_Darah)
-            {
-                <label>Ya</label>
-            }
-            else
-            {
-                <label>Tidak</label>
-            }
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.No_HP)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.No_HP)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Alamat_Email)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Alamat_Email)
-        </dd>
-        <dt class="col-sm-3">
-            @Html.DisplayNameFor(model => model.VwSingle.Status_Pernikahan)
-        </dt>
-        <dd class="col-sm-9">
-            @Html.DisplayFor(model => model.VwSingle.Status_Pernikahan)
-        </dd>
-        @if (Model.VwSingle.ID_Pernikahan != null)
-        {
-            <dd class="col-sm-3">
-                <a asp-action="PernikahanDetail" asp-route-id="@Model.VwSingle.ID_Pernikahan">Lihat Pasangan</a>
-            </dd>
-        }
-    </dl>
+    <div class="row">
+        <div class="col-sm-9">
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.KTP)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.KTP)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Nama_Lengkap)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Nama_Lengkap)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Nama_Panggilan)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Nama_Panggilan)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Jenis_Kelamin)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Jenis_Kelamin)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Pendidikan_Terakhir)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Pendidikan_Terakhir)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Pekerjaan)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Pekerjaan)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Alamat)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Alamat)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Status_Anggota)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Status_Anggota)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Status_Keaktifan)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Status_Keaktifan)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Kelompok_Ibadah)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Kelompok_Ibadah)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Komsel)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Komsel)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Tempat_Lahir)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Tempat_Lahir)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Tanggal_Lahir)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Tanggal_Lahir)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Golongan_Darah)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Golongan_Darah)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Bersedia_Donor_Darah)
+                </dt>
+                <dd class="col-sm-9">
+                    @if (Model.VwSingle.Bersedia_Donor_Darah)
+                    {
+                        <label>Ya</label>
+                    }
+                    else
+                    {
+                        <label>Tidak</label>
+                    }
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.No_HP)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.No_HP)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Alamat_Email)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Alamat_Email)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.VwSingle.Status_Pernikahan)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.VwSingle.Status_Pernikahan)
+                </dd>
+                @if (Model.VwSingle.ID_Pernikahan != null)
+                {
+                    <dd class="col-sm-3">
+                        <a asp-action="PernikahanDetail" asp-route-id="@base64Photo">Lihat Pasangan</a>
+                    </dd>
+                }
+            </dl>
+        </div>
+        <div class="col-sm-3">
+            <div class="avatar-parent-child"> 
+                <img alt="@Model.VwSingle.Nama_Panggilan" src="@Model.VwSingle.Photo" class="avatar avatar- rounded-circle">
+            </div>
+        </div>
+    </div>
     <div>
         <a class="btn btn-primary" asp-action="JemaatAddEdit" asp-route-id="@Model.VwSingle.ID">Edit</a>
         <a class="btn btn-neutral" asp-action="JemaatIndex">Back</a>

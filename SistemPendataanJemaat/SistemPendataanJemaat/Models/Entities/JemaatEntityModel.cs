@@ -78,6 +78,9 @@ namespace SistemPendataanJemaat.Models.Entities
         [Display(Name = "Status Pernikahan")]
         public string Status_Pernikahan_ID { get; set; }
 
+        [Display(Name = "Photo")]
+        public byte[] Photo { get; set; }
+
         public string Created_By { get; set; }
 
         public DateTime Created_Date { get; set; }

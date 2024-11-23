@@ -49,10 +49,36 @@ namespace SistemPendataanJemaat.Controllers
             return result;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> _BirthdayDialog(DateTime startDate, DateTime endDate)
+        {
+            BirthdayDialogViewModel viewModel = new BirthdayDialogViewModel();
+            IEnumerable<VwJemaatEntityModel> jemaatAll;
+            var cacheJemaat = _cache.GetCache("Home_Jemaat_All");
+
+            if (cacheJemaat != null)
+            {
+                jemaatAll = JsonSerializer.Deserialize<List<VwJemaatEntityModel>>(cacheJemaat);
+            } else
+            {
+                jemaatAll = await _repository.VwJemaat.FindAll();
+            }
+
+            var filteredJemaat = jemaatAll.Where(p => p.Tanggal_Lahir >= startDate && p.Tanggal_Lahir <= endDate);
+            viewModel.ListDewasa = filteredJemaat.Where(p => p.Status_Anggota_ID == "D" || p.Status_Anggota_ID == "L").ToList();
+            viewModel.ListPemuda = filteredJemaat.Where(p => p.Status_Anggota_ID == "P" || p.Status_Anggota_ID == "R").ToList();
+            viewModel.ListAnak = filteredJemaat.Where(p => p.Status_Anggota_ID == "A").ToList();
+            return PartialView("_BirthdayDialog", viewModel);
+        }
+
         public async Task<IActionResult> Index(HomeViewModel req)
         {
             var viewModel = new HomeViewModel();
+            viewModel.BirthdayStartDate = DateTime.Now;
+            viewModel.BirthdayEndDate = DateTime.Now;
             var vw_jemaat = await _repository.VwJemaat.FindAll();
+            var jemaat_json = JsonSerializer.Serialize(vw_jemaat);
+            _cache.SetCache("Home_Jemaat_All", jemaat_json);
 
             if (!req.SearchTriggered)
             {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemPendataanJemaat.Models.Entities
 {
-    [Table("tbl_Komsel")]
+    [Table("tbl_komsel")]
     public class KomselEntityModel
     {
         public string Komsel_ID { get; set; }

@@ -108,6 +108,7 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.No_HP);
                 u.Property(e => e.Alamat_Email);
                 u.Property(e => e.Status_Pernikahan_ID);
+                u.Property(e => e.Photo);
                 u.Property(e => e.Created_By);
                 u.Property(e => e.Created_Date);
                 u.Property(e => e.Updated_By);
@@ -204,6 +205,7 @@ namespace SistemPendataanJemaat.Repositories
                 u.Property(e => e.Status_Pernikahan);
                 u.Property(e => e.ID_Pernikahan);
                 u.Property(e => e.ID_Keluarga);
+                u.Property(e => e.Photo);
             });
 
             modelBuilder.Entity<VwKomselEntityModel>(u =>

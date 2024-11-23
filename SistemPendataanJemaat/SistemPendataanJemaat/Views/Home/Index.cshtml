@@ -33,7 +33,7 @@
 
     var XLabels = JsonSerializer.Serialize(Model.JemaatChartDataModels.Select(x => x.DimensionOne).ToList());
     var YValues = JsonSerializer.Serialize(Model.JemaatChartDataModels.Select(x => x.Quantity).ToList());
-    ViewData["Title"] = "Pie Chart";
+    ViewData["Title"] = "Statistik Jemaat";
 }
 
 <div class="container-fluid">
@@ -203,7 +203,10 @@
             </div>
         </div>
         <div class="col-xl-2 col-sm-3 col-4">
-            birthday buttonss
+            <!-- Button to Open the Modal -->
+            <button id="btnOpenModal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#birthdayModal">
+                Lihat Ulang Tahun
+            </button>
         </div>
     </div>
     @using (Html.BeginForm("Index", "Home", FormMethod.Get))
@@ -271,8 +274,61 @@
     }
 </div>
 
+<!-- The Modal -->
+<div class="modal fade" id="birthdayModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <span class="icon"><i class="bi bi-cake2"></i> Halaman Ulang Tahun</span>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3">
+                        <input asp-for="BirthdayStartDate" id="birthdayStartDate" placeholder="Dari" class="form-control" type="date" />
+                    </div>
+                    <div class="col-3">
+                        <input asp-for="BirthdayEndDate" id="birthdayEndDate" placeholder="Sampai" class="form-control" type="date" />
+                    </div>
+                    <div class="col-3">
+                        <input id="findBirthday" class="btn btn-neutral" value="Cari" />
+                    </div>
+                </div>
+                <br/>
+                <div class="row" id="tablecontent"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts{
     <script type="text/javascript">
+        $("#btnOpenModal").click(function () {
+            $('#birthdayModal').modal('show');
+        });
+
+        $("#findBirthday").click(function () {
+            var startDate = $("#birthdayStartDate").val();
+            var endDate = $("#birthdayEndDate").val();
+            // call the action method, in the success function add the return data in the Modal content.
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("_BirthdayDialog")',  //remember change the controller to your owns.
+                cache: false,
+                data: { startDate: startDate, endDate: endDate },
+                success: function (response) {
+                    $('#tablecontent').html(response);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+
         $(function () {
             var chartName = "chart";
             var ctx = document.getElementById(chartName).getContext('2d');
