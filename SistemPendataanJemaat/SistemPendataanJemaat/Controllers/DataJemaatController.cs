@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Threading.Tasks;
 using SistemPendataanJemaat.Helper;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace SistemPendataanJemaat.Controllers
 {
@@ -100,12 +102,21 @@ namespace SistemPendataanJemaat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> JemaatAddEdit(JemaatViewModel req)
+        public async Task<IActionResult> JemaatAddEdit(JemaatViewModel req, IFormFile imageFile)
         {
             var jemaat = req.Single;
 
             try
             {
+                if (imageFile != null)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        imageFile.CopyTo(ms);
+                        jemaat.Photo = ms.ToArray();
+                    }
+                }
+
                 if (jemaat.ID == null)
                 {
                     jemaat.ID = Guid.NewGuid();

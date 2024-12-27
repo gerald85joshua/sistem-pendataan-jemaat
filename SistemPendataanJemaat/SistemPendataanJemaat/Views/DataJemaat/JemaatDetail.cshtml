@@ -1,7 +1,7 @@
 ﻿@model JemaatViewModel
 @{
     ViewData["Title"] = "Detail Jemaat";
-    var base64Photo = Convert.ToBase64String(Model.VwSingle.Photo);
+    var base64Photo = Model.VwSingle.Photo != null && Model.VwSingle.Photo.Length > 0 ? Convert.ToBase64String(Model.VwSingle.Photo) : null;
     var tst = "test";
 }
 
@@ -132,9 +132,15 @@
                 }
             </dl>
         </div>
-        <div class="col-sm-3">
-            <div class="avatar-parent-child"> 
-                <img alt="@Model.VwSingle.Nama_Panggilan" src="@Model.VwSingle.Photo" class="avatar avatar- rounded-circle">
+        <div class="col-sm-2">
+            <div class="avatar-parent-child">
+                @if (base64Photo != null)
+                {
+                    <img alt="@Model.VwSingle.Nama_Panggilan" src="data:image/jpg;base64,@base64Photo" class="avatar avatar-sm rounded-circle" style="width: 100%; height: auto">
+                } else
+                {
+                    <img alt="@Model.VwSingle.Nama_Panggilan" src="/images/empty_photo_profile.jpg" class="avatar avatar-sm rounded-circle" style="width: 100%; height: auto">
+                }
             </div>
         </div>
     </div>
