@@ -16,7 +16,7 @@ namespace SistemPendataanJemaat.Models.Entities
         [Display(Name = "Nama Lengkap")]
         public string Nama_Lengkap { get; set; }
 
-        [Display(Name = "Nama Lengkap")]
+        [Display(Name = "Nama Panggilan")]
         public string Nama_Panggilan { get; set; }
 
         [Display(Name = "Jenis Kelamin")]

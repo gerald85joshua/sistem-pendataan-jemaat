@@ -262,9 +262,8 @@
                                 <td> @item.Nama_Lengkap </td>
                                 <td> @item.Jenis_Kelamin </td>
                                 <td> @item.Komsel </td>
-                                <td> <span class="badge badge-lg badge-dot"> <i class="@GetBgPoint(item.Status_Keaktifan_ID)"></i>@item.Status_Keaktifan</span></td>
-                                <td>
-                                    <a asp-action="JemaatDetail" asp-controller="DataJemaat" asp-route-id="@item.ID" class="btn btn-sm btn-neutral">View</a>
+                                <td> <span class="badge badge-lg badge-dot"> <i class="@GetBgPoint(item.Status_Keaktifan_ID)"></i>@item.Status_Keaktifan</span> </td>
+                                <td> <a asp-action="JemaatDetail" asp-controller="DataJemaat" asp-route-id="@item.ID" class="btn btn-sm btn-neutral">View</a> </td>
                             </tr>
                         }
                     </tbody>
@@ -298,8 +297,21 @@
                         <input id="findBirthday" class="btn btn-neutral" value="Cari" />
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-3">
+                        <input id="findBirthday" class="btn btn-neutral" value="Cari" />
+                    </div>
+                    <div class="col-3">
+                        <input onclick="window.print()" class="btn btn-primary" value="Print" />
+                    </div>
+                </div>
                 <br/>
-                <div class="row" id="tablecontent"></div>
+                <div class="row" id="birthdayContent"></div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-neutral" data-dismiss="modal">Tutup</button>
             </div>
         </div>
     </div>
@@ -321,7 +333,7 @@
                 cache: false,
                 data: { startDate: startDate, endDate: endDate },
                 success: function (response) {
-                    $('#tablecontent').html(response);
+                    $('#birthdayContent').html(response);
                 },
                 error: function (response) {
                     console.log(response.responseText);

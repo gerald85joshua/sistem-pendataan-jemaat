@@ -64,7 +64,9 @@ namespace SistemPendataanJemaat.Controllers
                 jemaatAll = await _repository.VwJemaat.FindAll();
             }
 
-            var filteredJemaat = jemaatAll.Where(p => p.Tanggal_Lahir >= startDate && p.Tanggal_Lahir <= endDate);
+            var dayStart = startDate.DayOfYear;
+            var dayEnd = endDate.DayOfYear;
+            var filteredJemaat = jemaatAll.Where(p => p.Tanggal_Lahir.DayOfYear >= dayStart && p.Tanggal_Lahir.DayOfYear <= dayEnd);
             viewModel.ListDewasa = filteredJemaat.Where(p => p.Status_Anggota_ID == "D" || p.Status_Anggota_ID == "L").ToList();
             viewModel.ListPemuda = filteredJemaat.Where(p => p.Status_Anggota_ID == "P" || p.Status_Anggota_ID == "R").ToList();
             viewModel.ListAnak = filteredJemaat.Where(p => p.Status_Anggota_ID == "A").ToList();
@@ -74,8 +76,9 @@ namespace SistemPendataanJemaat.Controllers
         public async Task<IActionResult> Index(HomeViewModel req)
         {
             var viewModel = new HomeViewModel();
-            viewModel.BirthdayStartDate = DateTime.Now;
-            viewModel.BirthdayEndDate = DateTime.Now;
+            var today = DateTime.Today;
+            viewModel.BirthdayStartDate = today.AddDays(-3);
+            viewModel.BirthdayEndDate = today.AddDays(+3);
             var vw_jemaat = await _repository.VwJemaat.FindAll();
             var jemaat_json = JsonSerializer.Serialize(vw_jemaat);
             _cache.SetCache("Home_Jemaat_All", jemaat_json);
