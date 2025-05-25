@@ -6,10 +6,13 @@
     var numAnak = 0;
 }
 
-<div id="birthdayContent" class="modal">
-    <div class="row">
-        <h5>Dewasa</h5>
-    </div>
+<br />
+<br />
+<div class="row">
+    <h5>Dewasa</h5>
+</div>
+@if (Model.ListDewasa.Count > 0)
+{
     <div class="row">
         <div class="table-responsive">
             <table class="table table-hover table-nowrap">
@@ -40,8 +43,98 @@
             </table>
         </div>
     </div>
-    <br/><br/>
+}
+else
+{
     <div class="row">
-        <h5>Pemuda</h5>
+        <p>No data found.</p>
     </div>
+}
+<br />
+<br />
+<div class="row">
+    <h5>Pemuda</h5>
 </div>
+@if (Model.ListPemuda.Count > 0)
+{
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-hover table-nowrap">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Nama Lengkap</th>
+                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Umur</th>
+                        <th scope="col">Tanggal Lahir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListPemuda)
+                    {
+                        var umur = today.Year - item.Tanggal_Lahir.Year;
+                        var tglLahir = item.Tanggal_Lahir.ToString("dd/MM/yyyy");
+                        numPemuda++;
+                        <tr>
+                            <td> @numPemuda. </td>
+                            <td> @item.Nama_Lengkap </td>
+                            <td> @item.Jenis_Kelamin </td>
+                            <td> @umur tahun </td>
+                            <td> @tglLahir </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <p>No data found.</p>
+    </div>
+}
+<br />
+<br />
+<div class="row">
+    <h5>Anak</h5>
+</div>
+@if (Model.ListAnak.Count > 0)
+{
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-hover table-nowrap">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">No.</th>
+                        <th scope="col">Nama Lengkap</th>
+                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Umur</th>
+                        <th scope="col">Tanggal Lahir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ListAnak)
+                    {
+                        var umur = today.Year - item.Tanggal_Lahir.Year;
+                        var tglLahir = item.Tanggal_Lahir.ToString("dd/MM/yyyy");
+                        numAnak++;
+                        <tr>
+                            <td> @numAnak. </td>
+                            <td> @item.Nama_Lengkap </td>
+                            <td> @item.Jenis_Kelamin </td>
+                            <td> @umur tahun </td>
+                            <td> @tglLahir </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <p>No data found.</p>
+    </div>
+}

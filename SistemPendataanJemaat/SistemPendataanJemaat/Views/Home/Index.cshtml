@@ -287,26 +287,24 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-4">
                         <input asp-for="BirthdayStartDate" id="birthdayStartDate" placeholder="Dari" class="form-control" type="date" />
                     </div>
-                    <div class="col-3">
+                    <div class="col-4">
                         <input asp-for="BirthdayEndDate" id="birthdayEndDate" placeholder="Sampai" class="form-control" type="date" />
-                    </div>
-                    <div class="col-3">
-                        <input id="findBirthday" class="btn btn-neutral" value="Cari" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3">
-                        <input id="findBirthday" class="btn btn-neutral" value="Cari" />
-                    </div>
-                    <div class="col-3">
-                        <input onclick="window.print()" class="btn btn-primary" value="Print" />
                     </div>
                 </div>
                 <br/>
-                <div class="row" id="birthdayContent"></div>
+                <div class="row">
+                    <div class="col-4">
+                        <input id="findBirthday" class="btn btn-neutral" value="Cari" />
+                    </div>
+                    <div class="col-4">
+                        <input onclick="printPopup()" class="btn btn-primary" value="Print" />
+                    </div>
+                </div>
+                <br/>
+                <div id="birthdayContent" class="row"></div>
             </div>
 
             <!-- Modal footer -->
@@ -319,7 +317,17 @@
 
 @section scripts{
     <script type="text/javascript">
+        function printPopup() {
+            const popup = document.getElementById("birthdayModal");
+            const originalBody = document.body.innerHTML;
+
+            document.body.innerHTML = popup.innerHTML;
+            window.print();
+            document.body.innerHTML = originalBody;
+        }
+
         $("#btnOpenModal").click(function () {
+            document.getElementById("birthdayModal").style.display = "block";
             $('#birthdayModal').modal('show');
         });
 
@@ -333,7 +341,9 @@
                 cache: false,
                 data: { startDate: startDate, endDate: endDate },
                 success: function (response) {
-                    $('#birthdayContent').html(response);
+                    var content = $('<div />').html(response);
+                    $('#birthdayContent').html("");
+                    $('#birthdayContent').append(content);
                 },
                 error: function (response) {
                     console.log(response.responseText);
