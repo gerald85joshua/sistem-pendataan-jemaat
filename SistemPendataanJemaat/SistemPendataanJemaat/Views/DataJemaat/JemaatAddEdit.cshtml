@@ -5,7 +5,7 @@
 }
 
 <div class="container-fluid">
-    <form asp-action="JemaatAddEdit" enctype="multipart/form-data">
+    <form asp-action="JemaatAddEdit" enctype="multipart/form-data" id="jemaatForm">
         @if (@ViewBag.IsEdit)
         {
             <input type="hidden" asp-for="Single.ID" />
@@ -107,7 +107,8 @@
                 {
                     <label asp-for="Single.Photo" class="control-label"></label>
                 }
-                <input type="file" name="imageFile" class="form-control"/>
+                <input type="file" name="imageFile" class="form-control" id="imageFileInput" />
+                <span id="imageFileError" class="text-danger"></span>
             </div>
         </div>
         <br /><hr /><br />
@@ -119,3 +120,20 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById('jemaatForm').addEventListener('submit', function (e) {
+            var fileInput = document.getElementById('imageFileInput');
+            var errorSpan = document.getElementById('imageFileError');
+            errorSpan.textContent = '';
+            if (fileInput && fileInput.files.length > 0) {
+                var file = fileInput.files[0];
+                if (file.size > 1048576) { // 1 MB in bytes
+                    errorSpan.textContent = 'Ukuran foto maksimal 1 MB.';
+                    e.preventDefault();
+                }
+            }
+        });
+    </script>
+}
